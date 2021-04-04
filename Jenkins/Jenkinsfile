@@ -1,7 +1,7 @@
 pipeline {
     agent {
         docker {
-            image 'adoptopenjdk:8-jdk-hotspot'
+            image 'adoptopenjdk:8-jdk'
             args '-v /root/.m2:/root/.m2'
         }
     }
