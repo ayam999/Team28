@@ -1,32 +1,38 @@
 pipeline {
-    agent {
-        docker {
-            image 'adoptopenjdk:8-jdk'
-            args '-v /root/.m2:/root/.m2'
+  agent { 
+      docker { 
+          image 'python:3.7.2' } }
+  stages {
+    stage('Build') {
+      steps {
+        withEnv(["HOME=${env.WORKSPACE}"]){
+            sh 'pip install --user flask'
+            sh 'pip install --user pyrebase'
+            sh 'pip install --user Flask-WTF'
+            sh 'pip install --user email_validator'
+            sh 'pip install --user --upgrade firebase-admin'
+            sh 'pip install --user json-e'
+            sh 'pip install --user requests --upgrade'
+            sh 'pip install --user Flask-JSGlue'
+            sh 'pip install --user pyflakes'
         }
+      }
     }
-    stages {
-        stage('Build') {
-            steps {
-                sh 'mvn -B -DskipTests clean package'
-                sh 'mvn install'
-            }
-        }
-        stage('Test') {
-            steps {
-                sh 'mvn test'
-                sh 'mvn compile test install'
-            }
-            post {
-                always {
-                    junit 'target/surefire-reports/*.xml'
-                }
-            }
-        }
-        stage('Deliver') {
-            steps {
-                sh './jenkins/scripts/deliver.sh'
-            }
-        }
+     
+    stage('Cloning Git') {
+      steps {
+       git 'https://github.com/mor0981/ParkFlask.git'
+      }
     }
+    
+    
+    stage('test') {
+      steps {
+        withEnv(["HOME=${env.WORKSPACE}"]){
+            sh 'python test2.py'
+            sh 'python -m pyflakes templates/'
+        }
+      }   
+    } 
+  }
 }
