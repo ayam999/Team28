@@ -1,7 +1,6 @@
 pipeline {
     agent {
         docker {
-            sh 'command to install mvn'
             image 'adoptopenjdk:8-jdk'
             args '-v /root/.m2:/root/.m2'
         }
