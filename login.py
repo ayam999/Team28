@@ -4,15 +4,12 @@ def ChooseToCompanion():
 def ChooseToLogin():
     Choose_AccountFrame.destroy()
     LoginForm()
-
 USERNAME = StringVar()
 PASSWORD = StringVar()
 ID = StringVar()
 EMAIL = StringVar()
 FN = StringVar()
 LN = StringVar()
-
-
 Developer= StringVar()
 Developerpass= StringVar()
 def LoginCompanionForm():
@@ -160,12 +157,9 @@ def RegisterForm():
     btne_login = Button(RegisterFrame11, text="Return To Login", fg="red", width=35, font=('arial', 18),
                         command=ToggleToLogin)
     btne_login.grid(row=9, columnspan=2, pady=20)
-    #######################################################
 def ToggleToLogin():
     RegisterFrame11.destroy()
     LoginForm()
-
-
 def Login():
     Database()
 
