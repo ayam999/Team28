@@ -7,7 +7,6 @@ from firebase_admin import credentials
 from firebase_admin import firestore
 
 app = Flask(_name_)
-
 app.config['SECRET_KEY'] = 'khawla'
 import json
 import os
