@@ -19,3 +19,12 @@ class LoginForm(FlaskForm):
     username = StringField(label='username', validators=[DataRequired(), Length(min=3, max=20)])
     password = PasswordField(label='password', validators=[DataRequired(), Length(min=6, max=8)])
     submit = SubmitField('Login')
+
+
+    
+class addDemandForm(FlaskForm):
+    email=StringField(label='email',validators=[DataRequired(),Email()])
+    demand = StringField(label='demand',validators=[DataRequired(),Length(min=3,max=100)])
+    siprintNumber=StringField(label='siprintNumber',validators=[DataRequired(),Length(min=1,max=20)])
+    submit = SubmitField('add')
+

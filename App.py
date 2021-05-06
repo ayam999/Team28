@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, flash, session, redirect, url_for, abort
-from forms import LoginForm, SignOutForm, signupForm
+from forms import LoginForm, SignOutForm, signupForm,addDemandForm
 import pyrebase
 import firebase_admin
 from firebase_admin import auth
@@ -200,6 +200,12 @@ def userAdmin():
         return redirect(url_for("logout"))
     return render_template('admin.html', form=form)
 
+@app.route('/userDemand',methods=['GET', 'POST'])
+def userDemand():
+    form = addDemandForm()
+    if form.validate_on_submit():
+        return redirect(url_for("logout"))
+    return render_template('developer.html',form=form)
 
 '''
 @app.route('/user',methods=['GET', 'POST'])
@@ -300,6 +306,27 @@ def updateDeveloper(post_id, text):
         return redirect(url_for('parks'))
     return render_template('updateComment.html', form=form, admin=session["admin"], text=text)
 
+@app.route('/addDemand',methods=['GET', 'POST'])
+def addDemand():
+    form=addDemandForm()
+    if request.method == 'POST':
+        email=form.email.data
+        demand=form.demand.data
+        try: 
+            Developertabel=auth.create_user_with_email_and_password(email,password)
+            data={"email":email,"demand":demand,"siprintNumber":siprintNumber}
+            db.collection(u'Developertabel').document().set({"email":email,"demand":demand,"siprintNumber":siprintNumber})
+            print(auth.get_account_info(userdemand['idToken'])['demandtabel'][0]['localId'])
+            info=auth.get_account_info(userdeveloper['idToken'])['demandtabel'][0]['localId']
+            db.collection(u'demandtabel').document(info).set(data)
+            return redirect(url_for("addDemand"),form=form)
+           # return render_template('developer.html',form=form)
+        except:
+            print("email already exist")
+    return render_template('addDemand.html',form=form)
 
 if _name_ == '_main_':
     app.run(debug=True)
+
+
+
