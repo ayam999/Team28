@@ -5,7 +5,7 @@ import firebase_admin
 from firebase_admin import auth
 from firebase_admin import credentials
 from firebase_admin import firestore
-app = Flask(_name_)
+app = Flask(__name__)
 
 app.config['SECRET_KEY']='khawla'
 import json 
@@ -13,7 +13,7 @@ import os
 import tempfile
 from werkzeug.utils import secure_filename
 
-app = Flask(_name_)
+app = Flask(__name__)
 
 app.config['SECRET_KEY']='khawla'
 
@@ -309,5 +309,5 @@ def updateDeveloper(post_id,text):
 
 
 
-if _name_ == '_main_':
+if __name__ == '__main__':
     app.run(debug=True)
