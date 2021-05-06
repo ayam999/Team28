@@ -25,3 +25,8 @@ class LoginForm(FlaskForm):
     password = PasswordField(label='password', validators=[DataRequired(), Length(min=6, max=8)])
     submit = SubmitField('Login')
 
+class addDemand(FlaskForm):
+    
+    Demand = StringField(label='firstname',validators=[DataRequired(),Length(min=3,max=20)])
+    submit = SubmitField('Login')
+
