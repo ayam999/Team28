@@ -17,12 +17,10 @@ class signupForm(FlaskForm):
 
 
 
-
 class LoginForm(FlaskForm):
     email=StringField(label='email',validators=[DataRequired(),Email()])
     password = PasswordField(label='password', validators=[DataRequired(), Length(min=6, max=8)])
     submit = SubmitField('Login')
-
 
 class SignOutForm(FlaskForm):
     submit = SubmitField('logout')
