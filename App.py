@@ -6,7 +6,6 @@ from firebase_admin import auth
 from firebase_admin import credentials
 from firebase_admin import firestore
 app = Flask(__name__)
-
 app.config['SECRET_KEY']='khawla'
 import json 
 import os
@@ -296,6 +295,17 @@ def updateDeveloper(post_id,text):
         db.collection(u'Comments').document(post_id).update(data)
         return redirect(url_for('parks'))
     return render_template('updateComment.html',form=form,admin=session["admin"],text=text)
+
+
+
+@app.route('/updetdeveloper/<post_id>/<text>/update',methods=['GET', 'POST'])
+def updateDeveloper(post_id,text):
+    form=update_sprint()
+    if form.validate_on_submit():
+        data={'text':form.comment.data}
+        db.collection(u'Comments').document(post_id).update(data)
+        return redirect(url_for('parks'))
+    return render_template('update_sprint.html',form=form,developer=session["developer"],text=text)
 
 
    
