@@ -29,8 +29,6 @@ class SignOutForm(FlaskForm):
 
 class update_sprint(FlaskForm):
     def update_sprint(self, id, name=None, startDate=None, endDate=None, state=None):
-        AGILE_BASE_URL = GreenHopperResource.AGILE_BASE_URL
-        JIRA_BASE_URL = Resource.JIRA_BASE_URL
         payload = {}
         if name:
             payload["name"] = name
