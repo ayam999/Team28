@@ -4,6 +4,99 @@ from flask_wtf import FlaskForm
 from  wtforms.validators import  DataRequired,Length,EqualTo, Email
 from flask_wtf import FlaskForm
 import json_loads
+from requests.auth import AuthBase
+
+"""
+This module implements a friendly (well, friendlier) interface between the raw JSON
+responses from Jira and the Resource/dict abstractions provided by this library. Users
+will construct a JIRA object as described below. Full API documentation can be found
+at: https://jira.readthedocs.io/en/latest/
+"""
+from functools import lru_cache
+from functools import wraps
+
+import imghdr
+import mimetypes
+
+from collections.abc import Iterable
+import copy
+import json
+import logging
+import os
+import re
+
+
+import calendar
+import datetime
+import hashlib
+from numbers import Number
+import requests
+import sys
+import time
+import warnings
+
+from requests.utils import get_netrc_auth
+from urllib.parse import urlparse
+
+# GreenHopper specific resources
+from jira.exceptions import JIRAError
+from jira.resilientsession import raise_on_error
+from jira.resilientsession import ResilientSession
+
+# Jira-specific resources
+from jira.resources import Attachment
+from jira.resources import Board
+from jira.resources import Comment
+from jira.resources import Component
+from jira.resources import Customer
+from jira.resources import CustomFieldOption
+from jira.resources import Dashboard
+from jira.resources import Filter
+from jira.resources import GreenHopperResource
+from jira.resources import Issue
+from jira.resources import IssueLink
+from jira.resources import IssueLinkType
+from jira.resources import IssueType
+from jira.resources import Priority
+from jira.resources import Project
+from jira.resources import RemoteLink
+from jira.resources import RequestType
+from jira.resources import Resolution
+from jira.resources import Resource
+from jira.resources import Role
+from jira.resources import SecurityLevel
+from jira.resources import ServiceDesk
+from jira.resources import Sprint
+from jira.resources import Status
+from jira.resources import StatusCategory
+from jira.resources import User
+from jira.resources import Group
+from jira.resources import Version
+from jira.resources import Votes
+from jira.resources import Watchers
+from jira.resources import Worklog
+
+from jira import __version__
+from jira.utils import CaseInsensitiveDict
+from jira.utils import json_loads
+from jira.utils import threaded_requests
+from pkg_resources import parse_version
+
+from collections import OrderedDict
+
+try:
+    # noinspection PyUnresolvedReferences
+    from requests_toolbelt import MultipartEncoder
+except ImportError:
+    pass
+
+try:
+    from requests_jwt import JWTAuth
+except ImportError:
+    pass
+
+
+logging.getLogger("jira").addHandler(logging.NullHandler())
 
 
 
@@ -61,6 +154,102 @@ class update_sprint(FlaskForm):
     # TODO(ssbarnea): remove these two variables and use the ones defined in resources
     JIRA_BASE_URL = Resource.JIRA_BASE_URL
     AGILE_BASE_URL = GreenHopperResource.AGILE_BASE_URL
+      self.sys_version_info = tuple([i for i in sys.version_info])
+
+        if options is None:
+            options = {}
+            if server and hasattr(server, "keys"):
+                warnings.warn(
+                    "Old API usage, use JIRA(url) or JIRA(options={'server': url}, when using dictionary always use named parameters.",
+                    DeprecationWarning,
+                )
+                options = server
+                server = None
+
+        if server:
+            options["server"] = server
+        if async_:
+            options["async"] = async_
+            options["async_workers"] = async_workers
+
+        self.logging = logging
+
+        self._options = copy.copy(JIRA.DEFAULT_OPTIONS)
+
+        self._options.update(options)
+
+        self._rank = None
+
+        # Rip off trailing slash since all urls depend on that
+        if self._options["server"].endswith("/"):
+            self._options["server"] = self._options["server"][:-1]
+
+        context_path = urlparse(self.server_url).path
+        if len(context_path) > 0:
+            self._options["context_path"] = context_path
+
+        self._try_magic()
+
+        if oauth:
+            self._create_oauth_session(oauth, timeout)
+        elif basic_auth:
+            self._create_http_basic_session(*basic_auth, timeout=timeout)
+            self._session.headers.update(self._options["headers"])
+        elif jwt:
+            self._create_jwt_session(jwt, timeout)
+        elif kerberos:
+            self._create_kerberos_session(timeout, kerberos_options=kerberos_options)
+        elif auth:
+            self._create_cookie_auth(auth, timeout)
+            # always log in for cookie based auth, as we need a first request to be logged in
+            validate = True
+        else:
+            verify = self._options["verify"]
+            self._session = ResilientSession(timeout=timeout)
+            self._session.verify = verify
+        self._session.headers.update(self._options["headers"])
+
+        if "cookies" in self._options:
+            self._session.cookies.update(self._options["cookies"])
+
+        self._session.max_retries = max_retries
+
+        if proxies:
+            self._session.proxies = proxies
+
+        self.auth = auth
+        if validate:
+            # This will raise an Exception if you are not allowed to login.
+            # It's better to fail faster than later.
+            user = self.session()
+            if user.raw is None:
+                auth_method = (
+                    oauth or basic_auth or jwt or kerberos or auth or "anonymous"
+                )
+                raise JIRAError("Can not log in with %s" % str(auth_method))
+
+        self.deploymentType = None
+        if get_server_info:
+            # We need version in order to know what API calls are available or not
+            si = self.server_info()
+            try:
+                self._version = tuple(si["versionNumbers"])
+            except Exception as e:
+                logging.error("invalid server_info: %s", si)
+                raise e
+            self.deploymentType = si.get("deploymentType")
+        else:
+            self._version = (0, 0, 0)
+
+        if self._options["check_update"] and not JIRA.checked_version:
+            self._check_update_()
+            JIRA.checked_version = True
+
+        self._fields = {}
+        for f in self.fields():
+            if "clauseNames" in f:
+                for name in f["clauseNames"]:
+                    self._fields[name] = f["id"]
 
     def update_sprint(self, id, name=None, startDate=None, endDate=None, state=None):
         payload = {}
