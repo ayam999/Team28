@@ -27,9 +27,9 @@ class LoginForm(FlaskForm):
 class SignOutForm(FlaskForm):
     submit = SubmitField('logout')
 
-class update_sprint(FlaskForm):
+
     
-    def update_sprint(self, id, name=None, startDate=None, endDate=None, state=None):
+ def update_sprint(self, id, name=None, startDate=None, endDate=None, state=None):
         payload = {}
         if name:
             payload["name"] = name
@@ -50,4 +50,4 @@ class update_sprint(FlaskForm):
         url = self._get_url("sprint/%s" % id, base=self.AGILE_BASE_URL)
         r = self._session.put(url, data=json.db(payload))
 
-    return json_loads(r)
+     return json_loads(r)
