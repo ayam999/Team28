@@ -3,7 +3,7 @@ from wtforms import StringField, PasswordField , SubmitField , RadioField,TextAr
 from flask_wtf import FlaskForm
 from  wtforms.validators import  DataRequired,Length,EqualTo, Email
 from flask_wtf import FlaskForm
-
+import json
 
 
 class signupForm(FlaskForm):
