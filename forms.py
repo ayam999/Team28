@@ -24,7 +24,7 @@ class LoginForm(FlaskForm):
 class SignOutForm(FlaskForm):
     submit = SubmitField('logout')
 
- class update_sprint(FlaskForm):
+class update_sprint(FlaskForm):
       def update_sprint(self, id, name=None, startDate=None, endDate=None, state=None):
         payload = {}
         if name:
@@ -35,7 +35,7 @@ class SignOutForm(FlaskForm):
             payload["endDate"] = endDate
         if state:
             if (
-                self._options["agile_rest_path"]
+                self._options["agile_rest_path"] 
                 == GreenHopperResource.GREENHOPPER_REST_PATH
             ):
                 raise NotImplementedError(
