@@ -1,5 +1,15 @@
+<<<<<<< HEAD
 from flask import Flask,render_template,request,flash,session,redirect,url_for,abort
 from forms import LoginForm,SignOutForm,signupForm,addDemandForm
+=======
+<<<<<<< Updated upstream
+from flask import Flask, render_template, request, flash, session, redirect, url_for, abort
+from forms import LoginForm, SignOutForm, signupForm
+=======
+from flask import Flask,render_template,request,flash,session,redirect,url_for,abort
+from forms import LoginForm,SignOutForm,signupForm,addDemandForm
+>>>>>>> Stashed changes
+>>>>>>> 722eda7077a4bbe418ac74ed9a1cbc8eab0dee39
 import pyrebase
 import firebase_admin
 from firebase_admin import auth
@@ -7,8 +17,14 @@ from firebase_admin import credentials
 from firebase_admin import firestore
 app = Flask(__name__)
 
+<<<<<<< HEAD
 app.config['SECRET_KEY']='khawla'
 import json 
+=======
+app = Flask(_name_)
+app.config['SECRET_KEY'] = 'khawla'
+import json
+>>>>>>> 722eda7077a4bbe418ac74ed9a1cbc8eab0dee39
 import os
 import tempfile
 from werkzeug.utils import secure_filename
@@ -197,14 +213,28 @@ def userAdmin():
     form = SignOutForm()
     if form.validate_on_submit():
         return redirect(url_for("logout"))
+<<<<<<< HEAD
     return render_template('admin.html',form=form)
 
+=======
+<<<<<<< Updated upstream
+    return render_template('admin.html', form=form)
+
+
+=======
+    return render_template('admin.html',form=form)
+
+>>>>>>> 722eda7077a4bbe418ac74ed9a1cbc8eab0dee39
 @app.route('/userDemand',methods=['GET', 'POST'])
 def userDemand():
     form = addDemandForm()
     if form.validate_on_submit():
         return redirect(url_for("logout"))
     return render_template('developer.html',form=form)
+<<<<<<< HEAD
+=======
+>>>>>>> Stashed changes
+>>>>>>> 722eda7077a4bbe418ac74ed9a1cbc8eab0dee39
 '''
 @app.route('/user',methods=['GET', 'POST'])
 def user():
@@ -241,8 +271,17 @@ def register():
            # return render_template('developer.html',form=form)
         except:
             print("email already exist")
+<<<<<<< HEAD
     return render_template('register.html',form=form)
     
+=======
+<<<<<<< Updated upstream
+    return render_template('register.html', form=form)
+=======
+    return render_template('register.html',form=form)
+>>>>>>> Stashed changes
+
+>>>>>>> 722eda7077a4bbe418ac74ed9a1cbc8eab0dee39
 
 @app.route('/registerScrumMaster',methods=['GET', 'POST'])
 def registerScrumMaster():
@@ -302,9 +341,22 @@ def updateDeveloper(post_id,text):
         data={'text':form.comment.data}
         db.collection(u'Comments').document(post_id).update(data)
         return redirect(url_for('parks'))
+<<<<<<< HEAD
     return render_template('updateComment.html',form=form,admin=session["admin"],text=text)
 
 
+=======
+<<<<<<< Updated upstream
+    return render_template('updateComment.html', form=form, admin=session["admin"], text=text)
+=======
+    return render_template('updateComment.html',form=form,admin=session["admin"],text=text)
+
+
+
+
+
+
+>>>>>>> 722eda7077a4bbe418ac74ed9a1cbc8eab0dee39
 @app.route('/addDemand',methods=['GET', 'POST'])
 def addDemand():
     form=addDemandForm()
@@ -314,16 +366,37 @@ def addDemand():
         try: 
             Developertabel=auth.create_user_with_email_and_password(email,password)
             data={"email":email,"demand":demand,"siprintNumber":siprintNumber}
+<<<<<<< HEAD
             db.collection(u'demandtabel').document().set({"email":email,"demand":demand,"siprintNumber":siprintNumber})
+=======
+            db.collection(u'Developertabel').document().set({"email":email,"demand":demand,"siprintNumber":siprintNumber})
+>>>>>>> 722eda7077a4bbe418ac74ed9a1cbc8eab0dee39
             print(auth.get_account_info(userdemand['idToken'])['demandtabel'][0]['localId'])
             info=auth.get_account_info(userdeveloper['idToken'])['demandtabel'][0]['localId']
             db.collection(u'demandtabel').document(info).set(data)
             return redirect(url_for("addDemand"),form=form)
            # return render_template('developer.html',form=form)
         except:
+<<<<<<< HEAD
             print("UserStory already exist")
     return render_template('addDemand.html',form=form)  
 
+=======
+            print("email already exist")
+    return render_template('addDemand.html',form=form)
+
+
+   
+
+
+
+
+
+
+
+
+>>>>>>> Stashed changes
+>>>>>>> 722eda7077a4bbe418ac74ed9a1cbc8eab0dee39
 
 
 if __name__ == '__main__':
