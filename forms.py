@@ -30,3 +30,9 @@ class addDemandForm(FlaskForm):
     demand = TextAreaField(label='demand',validators=[DataRequired()])
     siprintNumber=StringField(label='siprintNumber',validators=[DataRequired(),Length(min=1,max=20)])
     submit = SubmitField('add')
+
+
+
+class DeleteDemandForm(FlaskForm):
+    siprintNumber=StringField(label='siprintNumber',validators=[DataRequired(),Length(min=1,max=20)])
+    submit = SubmitField('Delete')

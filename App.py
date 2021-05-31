@@ -1,5 +1,5 @@
 from flask import Flask,render_template,request,flash,session,redirect,url_for,abort
-from forms import LoginForm,SignOutForm,signupForm,addDemandForm
+from forms import LoginForm,SignOutForm,signupForm,addDemandForm,DeleteDemandForm
 import pyrebase
 import firebase_admin
 from firebase_admin import auth
@@ -314,15 +314,36 @@ def addDemand():
         try: 
             Developertabel=auth.create_user_with_email_and_password(email,password)
             data={"email":email,"demand":demand,"siprintNumber":siprintNumber}
-            db.collection(u'Developertabel').document().set({"email":email,"demand":demand,"siprintNumber":siprintNumber})
+            db.collection(u'demandtabel').document().set({"email":email,"demand":demand,"siprintNumber":siprintNumber})
             print(auth.get_account_info(userdemand['idToken'])['demandtabel'][0]['localId'])
             info=auth.get_account_info(userdeveloper['idToken'])['demandtabel'][0]['localId']
             db.collection(u'demandtabel').document(info).set(data)
             return redirect(url_for("addDemand"),form=form)
            # return render_template('developer.html',form=form)
         except:
-            print("email already exist")
+            print("user story already exist")
     return render_template('addDemand.html',form=form)  
+
+
+@app.route('/deleteDemand',methods=['GET', 'POST'])
+def deleteDemand():
+    form=deleteDemandForm()
+    if form.validate_on_submit():
+
+        req = request.form
+        siprintNumber = req["siprintNumber"]
+        
+        docs = db.collection(u'demandtabel').stream()
+        for doc in docs:
+            dici = doc.to_dict()
+            if siprintNumber == dici['name']:
+                print (f"park {dici['siprintNumber']} in {dici['other']} has beem deleted")
+                db.collection(u'demandtabel').document(doc.id).delete()
+                flash("user story has been deleted")
+
+
+        return redirect(url_for('deletepark'))
+    return render_template('deletePark.html', form=form,admin=session["admin"])
 
 
 
