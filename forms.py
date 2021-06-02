@@ -2,7 +2,7 @@ from flask import  Flask,render_template,session,redirect,url_for
 from wtforms import StringField, PasswordField , SubmitField , RadioField,TextAreaField
 from flask_wtf import FlaskForm
 from  wtforms.validators import  DataRequired,Length,EqualTo, Email
-from flask_wtf import FlaskForm
+
 import json
 
 
