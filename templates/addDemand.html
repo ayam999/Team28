@@ -9,7 +9,7 @@
       <form method="POST" action="" >
           {{ form.hidden_tag() }}
           <fieldset>
-              <legend class="border-bottom mb-4">Sing up </legend>
+              <legend class="border-bottom mb-4">add Demand </legend>
                
               {{ form.email.label(class="form-control-label") }}
               {% if form.email.errors %}
@@ -22,34 +22,27 @@
           {{ form.email(class="from-control form-control-lg") }}
               {%endif%}
                </div>
-
+               
               
+
+        
+
                <div class="form-group">
-                {{ form.demand.label(class="form-control-label") }}
-                {%if form.demand.errors%}
-                 {{ form.demand(class="from-control form-control-lg is-invalid") }}
+                {{ form.Demand.label(class="form-control-label") }}
+                {%if form.Demand.errors%}
+                 {{ form.Demand(class="from-control form-control-lg is-invalid") }}
                     {% for error in form.email.errors %}
                         <span> {{error}}</span>
                      {% endfor %}
                 {% else %}
-            {{ form.demand(class="from-control form-control-lg") }}
+            {{ form.Demand(class="from-control form-control-lg") }}
                 {%endif%}
                  </div>
 
-
-                <div class="form-group">
-              {{ form.siprintNumber.label(class="form-control-label") }}
-              {%if form.siprintNumber.errors%}
-               {{ form.siprintNumber(class="from-control form-control-lg is-invalid") }}
-                  {% for error in form.email.errors %}
-                      <span> {{error}}</span>
-                   {% endfor %}
-              {% else %}
-          {{ form.siprintNumber(class="from-control form-control-lg") }}
-              {%endif%}
-               </div>
-
                
+              
+
+                           
 
                
 
