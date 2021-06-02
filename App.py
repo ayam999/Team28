@@ -1,10 +1,10 @@
-<<<<<<< Updated upstream
+
 from flask import Flask, render_template, request, flash, session, redirect, url_for, abort
-from forms import LoginForm, SignOutForm, signupForm
-=======
+from forms import LoginForm, SignOutForm, signupForm, addDemandForm
+
 from flask import Flask,render_template,request,flash,session,redirect,url_for,abort
 from forms import LoginForm,SignOutForm,signupForm,addDemandForm
->>>>>>> Stashed changes
+
 import pyrebase
 import firebase_admin
 from firebase_admin import auth
@@ -202,11 +202,11 @@ def userAdmin():
     form = SignOutForm()
     if form.validate_on_submit():
         return redirect(url_for("logout"))
-<<<<<<< Updated upstream
+
     return render_template('admin.html', form=form)
 
 
-=======
+
     return render_template('admin.html',form=form)
 
 @app.route('/userDemand',methods=['GET', 'POST'])
@@ -215,7 +215,7 @@ def userDemand():
     if form.validate_on_submit():
         return redirect(url_for("logout"))
     return render_template('developer.html',form=form)
->>>>>>> Stashed changes
+
 '''
 @app.route('/user',methods=['GET', 'POST'])
 def user():
@@ -253,11 +253,11 @@ def register():
         # return render_template('developer.html',form=form)
         except:
             print("email already exist")
-<<<<<<< Updated upstream
+
     return render_template('register.html', form=form)
-=======
+
     return render_template('register.html',form=form)
->>>>>>> Stashed changes
+
 
 
 @app.route('/registerScrumMaster', methods=['GET', 'POST'])
@@ -310,17 +310,7 @@ def registerAdmine():
     return render_template('registerAdmin.html', form=form)
 
 
-@app.route('/updetdeveloper/<post_id>/<text>/update', methods=['GET', 'POST'])
-def updateDeveloper(post_id, text):
-    form = updateComment()
-    if form.validate_on_submit():
-        data = {'text': form.comment.data}
-        db.collection(u'Comments').document(post_id).update(data)
-        return redirect(url_for('parks'))
-<<<<<<< Updated upstream
-    return render_template('updateComment.html', form=form, admin=session["admin"], text=text)
-=======
-    return render_template('updateComment.html',form=form,admin=session["admin"],text=text)
+
 
 
 
@@ -333,17 +323,18 @@ def addDemand():
     if request.method == 'POST':
         email=form.email.data
         demand=form.demand.data
+        siprintNumber=form.dsiprintNumber.data
         try: 
-            Developertabel=auth.create_user_with_email_and_password(email,password)
-            data={"email":email,"demand":demand,"siprintNumber":siprintNumber}
-            db.collection(u'Developertabel').document().set({"email":email,"demand":demand,"siprintNumber":siprintNumber})
-            print(auth.get_account_info(userdemand['idToken'])['demandtabel'][0]['localId'])
-            info=auth.get_account_info(userdeveloper['idToken'])['demandtabel'][0]['localId']
-            db.collection(u'demandtabel').document(info).set(data)
-            return redirect(url_for("addDemand"),form=form)
+           Demandabel=auth.create_user_with_email_and_password(email,demand,siprintNumbe)
+           data={"email":email,"demand":demand,"siprintNumber":siprintNumber}
+           db.collection(u'Demandtabel').document().set({"email":email,"demand":demand,"siprintNumber":siprintNumber})
+           print(auth.get_account_info(userdemand['idToken'])['demandtabel'][0]['localId'])
+           info=auth.get_account_info(userdemand['idToken'])['demandtabel'][0]['localId']
+           db.collection(u'demandtabel').document(info).set(data)
+           return redirect(url_for("addDemand"),form=form)
            # return render_template('developer.html',form=form)
         except:
-            print("email already exist")
+            print("deman already exist")
     return render_template('addDemand.html',form=form)
 
 
@@ -356,7 +347,7 @@ def addDemand():
 
 
 
->>>>>>> Stashed changes
+
 
 
 if _name_ == '_main_':
