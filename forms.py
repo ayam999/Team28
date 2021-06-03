@@ -45,9 +45,9 @@ class addDemandForm(FlaskForm):
     #demandNumber= StringField("demandNumber", validators=[DataRequired()])
     submit = SubmitField('add demand')   
 
-class DeleteDemanForm(FlaskForm):
+class DeleteProjectForm(FlaskForm):
     email = StringField("email", validators=[DataRequired()])
 
-    Demand = StringField("Demand", validators=[DataRequired()])
+    Project = StringField("Project", validators=[DataRequired()])
 
-    submit = SubmitField('Delete Deman')   
+    submit = SubmitField('Delete Project')   
