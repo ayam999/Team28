@@ -1,5 +1,5 @@
 from flask import Flask,render_template,request,flash,session,redirect,url_for,abort
-from forms import  LoginForm,SignOutForm,signupForm,addDemandForm,DeleteDemanForm 
+from forms import  LoginForm,SignOutForm,signupForm,addDemandForm,DeleteDemanForm,DeleteDeveloperForm 
 import pyrebase
 import firebase_admin
 from firebase_admin import auth
@@ -380,6 +380,30 @@ def deleteDeman():
 
         return redirect(url_for('deleteDeman'))
     return render_template('DeleteDeman.html', form=form)
+
+
+@app.route('/deleteDeveloper', methods =['GET','POST'])
+def deleteDeveloper():
+    form = DeleteDeveloperForm()
+    
+    if form.validate_on_submit():
+
+        req = request.form
+        emailDeveloper = req["email"]
+        
+        docs=db.collection(u'Developertabel').stream()
+        for doc in docs:
+            dici = doc.to_dict()
+            if emailDeveloper == dici['email']:
+                print (f"Developer {dici['email']} in {dici['firstname']} has beem deleted")
+                db.collection(u'Developertabel').document(doc.id).delete()
+                flash("Developer has been deleted")
+            else:
+                print("this developer is not exits")
+       
+
+        return redirect(url_for('deleteDeveloper'))
+    return render_template('deleteDeveloper.html', form=form,)
 
 
 
