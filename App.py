@@ -348,6 +348,8 @@ def addDemand():
         return redirect(url_for('addDemand'))
     return render_template('addDemand.html', form=form)
 
+
+
 @app.route('/deleteProject', methods =['GET','POST'])
 def deleteProject():
     form = DeleteProjectForm()
@@ -370,7 +372,35 @@ def deleteProject():
     return render_template('DeleteProject.html', form=form)
 
 
+@app.route('/addProject', methods =['GET','POST'])
+def addProject():
+    form = addProjectForm()
+    if form.validate_on_submit():
+        data = {
+        "name": form.email.data,
+        "other": form.Project.data,
+        #"other": form.demandNumber.data,
+        #" Demand": form. Demand.data,
 
+        
+        }
+        docs = db.collection(u'ProjectTabel').stream()
+        canAddProject = True
+        for doc in docs:
+            dici = doc.to_dict()
+            #if data["name"] == dici['name'] and data["other"] == dici['Project']and data["Project"] == dici['Project']:
+            
+            if data["name"] == dici['name'] and data["other"] == dici['other']:
+                canAddProject = False
+
+        if canAddProject:
+            db.collection(u'ProjectTabel').document().set(data)
+            flash("add new project  ")
+        else:
+            flash(" Project didint added ")
+
+        return redirect(url_for('addProject'))
+    return render_template('addProject.html', form=form)
 
 
 
