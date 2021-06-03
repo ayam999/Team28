@@ -397,7 +397,7 @@ def addProject():
             db.collection(u'ProjectTabel').document().set(data)
             flash("add new project  ")
         else:
-            flash(" Project didint added ")
+            flash(" Project didnt added ")
 
         return redirect(url_for('addProject'))
     return render_template('addProject.html', form=form)
