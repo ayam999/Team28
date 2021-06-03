@@ -265,7 +265,7 @@ def registerScrumMaster():
             Developertabel=auth.create_user_with_email_and_password(email,password)
             data={"email":email,"password":password,"id":id,"firstname":firstname,"lastname":lastname}
             db.collection(u'ScrumMastertabel').document().set({"email":email,"password":password,"id":id,"firstname":firstname,"lastname":lastname})
-            print(auth.get_account_info(userregisterScrumMaster['idToken'])['ScrumMastertabel'][0]['localId'])
+            print(auth.get_account_info(userregisterScrumMaste['idToken'])['ScrumMastertabel'][0]['localId'])
             info=auth.get_account_info(userregisterScrumMaste['idToken'])['ScrumMastertabell'][0]['localId']
             db.collection(u'ScrumMastertabel').document(info).set(data)
             #return redirect(url_for("scrumMasterPage"),form=form)
@@ -380,60 +380,6 @@ def deleteDeman():
 
         return redirect(url_for('deleteDeman'))
     return render_template('DeleteDeman.html', form=form)
-
-
-
-@app.route('/Demands/<string:email>/update', methods=['GET', 'POST'])
-def updateDeman(email):
-    print("Into Update Users story!")
-    docs = db.collection(u'DemandTaple').stream()
-    canMakeDemand = True
-    for doc in docs:
-        dici = doc.to_dict()
-        if  dici['email']==email :
-            canMakeDemand = False
-            rpost=dici['name']
-            emailDemand=dici['email']
-            wanted=dici
-    if canMakeDemand:
-        abort(403)
-           
-    else:
-        rrpost=rpost
-    ref_comment=db.collection(u'DemandTaple')
-    ref_my=ref_comment.where(u'email',u'==',email).stream()
-    for r in ref_my:
-        rr=r.to_dict()['email']
-        print(rr)
-
-    form = PostForm()
-    print(form.email.data)
-    if form.validate_on_submit():
-        print("after")
-        guest_email = form.email.data
-        guest_name = form.name.data
-        guest_last = form.last.data
-        guset_password=form.password.data
-        print(guset_password)
-        ref_comment=db.collection(u'Users')
-        ref_my=ref_comment.where(u'email',u'==',email).get()
-        field_updates={"name":guest_name,"last":guest_last,"email":guest_email}
-        for r in ref_my:
-            rr=ref_comment.document(r.id)
-            rr.update(field_updates)
-        
-        flash('המשתמש התעדכן בהצלחה!', 'success')
-        return redirect(url_for('AllGuest', email=emailGuest))
-    elif request.method == 'GET':
-        print("get")
-        docs
-        form.email.data = wanted['email']
-        form.name.data = wanted['name']
-        form.last.data=wanted['last']
-        form.password=wanted['password']
-    return render_template('CreateGuest.html', title='Update Guest',
-                           form=form, legend='Update Guest')   
-
 
 
 
