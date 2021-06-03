@@ -2,8 +2,9 @@ from flask import  Flask,render_template,session,redirect,url_for
 from wtforms import StringField, PasswordField , SubmitField , RadioField,TextAreaField
 from flask_wtf import FlaskForm
 from  wtforms.validators import  DataRequired,Length,EqualTo, Email
+from flask_wtf import FlaskForm
 
-import json
+
 
 
 class signupForm(FlaskForm):
@@ -24,30 +25,16 @@ class LoginForm(FlaskForm):
 class SignOutForm(FlaskForm):
     submit = SubmitField('logout')
 
-class update_sprint(FlaskForm):
-      def update_sprint(self, id, name=None, startDate=None, endDate=None, state=None):
-        payload = {}
-        if name:
-            payload["name"] = name
-        if startDate:
-            payload["startDate"] = startDate
-        if endDate:
-            payload["endDate"] = endDate
-        if state:
-            if (
-                self._options["agile_rest_path"] 
-                == GreenHopperResource.GREENHOPPER_REST_PATH
-            ):
-                raise NotImplementedError(
-                    "Public Jira API does not support state update"
-                )
-            payload["state"] = state
+class addDemandForm(FlaskForm):
+    email=StringField(label='email',validators=[DataRequired(),Email()])
+    demand = TextAreaField(label='demand',validators=[DataRequired()])
+    siprintNumber=StringField(label='siprintNumber',validators=[DataRequired(),Length(min=1,max=20)])
+    demandNumber=StringField(label='demandNumber',validators=[DataRequired(),Length(min=1,max=20)])
+    submit = SubmitField('add')
+ 
+class DeleteDemanForm(FlaskForm):
+    email = StringField("email", validators=[DataRequired()])
 
-        url = self._get_url("sprint/%s" % id, base=self.AGILE_BASE_URL)
-        r = self._session.put(url, data=json.db(payload))
+    Demand = StringField("Demand", validators=[DataRequired()])
 
-        return json_loads(r)
-
-   
-
-
+    submit = SubmitField('Delete Deman')
