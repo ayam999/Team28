@@ -383,21 +383,6 @@ def deleteDeman():
 
 
 
-    
-
-
-
-@app.route('/updetdeveloper/<post_id>/<text>/update',methods=['GET', 'POST'])
-def updateDeveloper(post_id,text):
-    form=updateComment()
-    if form.validate_on_submit():
-        data={'text':form.comment.data}
-        db.collection(u'Comments').document(post_id).update(data)
-        return redirect(url_for('parks'))
-    return render_template('updateComment.html',form=form,admin=session["admin"],text=text)
-
-
-
 @app.route('/Guests/<string:email>/update', methods=['GET', 'POST'])
 def updateGuest(email):
     print("into UpdateGuest")
