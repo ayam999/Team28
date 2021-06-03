@@ -357,12 +357,12 @@ def deleteProject():
         email = req["email"]
         Project  = req["Project"]
 
-        docs = db.collection(u'DemandTabel').stream()
+        docs = db.collection(u'ProjectTabel').stream()
         for doc in docs:
             dici = doc.to_dict()
             if email == dici['name'] and Project  == dici['other']:
-                print (f"DemandTabel {dici['name']} in {dici['other']} has beem deleted")
-                db.collection(u'DemandTabel').document(doc.id).delete()
+                print (f"ProjectTabel {dici['name']} in {dici['other']} has beem deleted")
+                db.collection(u'ProjectTabel').document(doc.id).delete()
                 flash("Delete Project")
 
 
