@@ -324,27 +324,25 @@ def addDemand():
             print("user story already exist")
     return render_template('addDemand.html',form=form)  
 
-
-@app.route('/deleteDemand',methods=['GET', 'POST'])
-def deleteDemand():
-    form=deleteDemandForm()
+@app.route('/deleteDeman', methods =['GET','POST'])
+def deleteDeman():
+    form = DeleteDemanForm()
     if form.validate_on_submit():
 
         req = request.form
-        siprintNumber = req["siprintNumber"]
-        
-        docs = db.collection(u'demandtabel').stream()
+        email = req["email"]
+        Demand  = req["Demand"]
+
+        docs = db.collection(u'DemandTabel').stream()
         for doc in docs:
             dici = doc.to_dict()
-            if siprintNumber == dici['name']:
-                print (f"park {dici['siprintNumber']} in {dici['other']} has beem deleted")
-                db.collection(u'demandtabel').document(doc.id).delete()
-                flash("user story has been deleted")
+            if email == dici['name'] and Demand  == dici['other']:
+                print (f"DemandTabel {dici['name']} in {dici['other']} has beem deleted")
+                db.collection(u'DemandTabel').document(doc.id).delete()
+                flash("Delete Deman")
 
-
-        return redirect(url_for('deletepark'))
-    return render_template('deletePark.html', form=form,admin=session["admin"])
-
+        return redirect(url_for('deleteDeman'))
+    return render_template('DeleteDeman.html', form=form)
 
 
 
