@@ -1,18 +1,19 @@
 from flask import Flask,render_template,request,flash,session,redirect,url_for,abort
-from forms import LoginForm,SignOutForm,signupForm
+from forms import LoginForm,SignOutForm,signupForm,addDemandForm,DeleteDemanForm
 import pyrebase
 import firebase_admin
 from firebase_admin import auth
 from firebase_admin import credentials
 from firebase_admin import firestore
-app = Flask(__name__)
+app = Flask(_name_)
+
 app.config['SECRET_KEY']='khawla'
 import json 
 import os
 import tempfile
 from werkzeug.utils import secure_filename
 
-app = Flask(__name__)
+app = Flask(_name_)
 
 app.config['SECRET_KEY']='khawla'
 
@@ -177,8 +178,8 @@ def loginAdmine():
 
 
 
-@app.route('/userScrumMaster',methods=['GET', 'POST'])
-def userScrumMaster():
+@app.route('/userregisterScrumMaste',methods=['GET', 'POST'])
+def userregisterScrumMaste():
     form = SignOutForm()
     if form.validate_on_submit():
         return redirect(url_for("logout"))
@@ -250,10 +251,10 @@ def registerScrumMaster():
             data={"email":email,"password":password,"id":id,"firstname":firstname,"lastname":lastname}
             db.collection(u'ScrumMastertabel').document().set({"email":email,"password":password,"id":id,"firstname":firstname,"lastname":lastname})
             print(auth.get_account_info(userregisterScrumMaster['idToken'])['ScrumMastertabel'][0]['localId'])
-            info=auth.get_account_info(userdeveloper['idToken'])['ScrumMastertabell'][0]['localId']
+            info=auth.get_account_info(userregisterScrumMaste['idToken'])['ScrumMastertabell'][0]['localId']
             db.collection(u'ScrumMastertabel').document(info).set(data)
-            return redirect(url_for("scrumMasterPage"),form=form)
-            #return render_template('scrumMaster.html',form=form)
+            #return redirect(url_for("scrumMasterPage"),form=form)
+            return render_template('scrumMaster.html',form=form)
         except:
             print("email already exist")
     return render_template('registerScrumMaster.html',form=form)
@@ -272,8 +273,8 @@ def registerAdmine():
             Developertabel=auth.create_user_with_email_and_password(email,password)
             data={"email":email,"password":password,"id":id,"firstname":firstname,"lastname":lastname}
             db.collection(u'Adminetabel').document().set({"email":email,"password":password,"id":id,"firstname":firstname,"lastname":lastname})
-            print(auth.get_account_info(userregisterScrumMaster['idToken'])['Adminetabel'][0]['localId'])
-            info=auth.get_account_info(userdeveloper['idToken'])['Adminetabel'][0]['localId']
+            print(auth.get_account_info(userAdmin['idToken'])['Adminetabel'][0]['localId'])
+            info=auth.get_account_info(userAdmin['idToken'])['Adminetabel'][0]['localId']
             db.collection(u'Adminetabel').document(info).set(data)
             return redirect(url_for("adminPage"),form=form)
            # return render_template('scrumMaster.html',form=form)
@@ -296,18 +297,26 @@ def updateDeveloper(post_id,text):
         return redirect(url_for('parks'))
     return render_template('updateComment.html',form=form,admin=session["admin"],text=text)
 
-
-
-@app.route('/updetdeveloper/<post_id>/<text>/update',methods=['GET', 'POST'])
-def updateDeveloper(post_id,text):
-    form=update_sprint()
+@app.route('/deleteDeman', methods =['GET','POST'])
+def deleteDeman():
+    form = DeleteDemanForm()
     if form.validate_on_submit():
-        data={'text':form.comment.data}
-        db.collection(u'Comments').document(post_id).update(data)
-        return redirect(url_for('parks'))
-    return render_template('update_sprint.html',form=form,developer=session["developer"],text=text)
+
+        req = request.form
+        email = req["email"]
+        Demand  = req["Demand"]
+
+        docs = db.collection(u'DemandTabel').stream()
+        for doc in docs:
+            dici = doc.to_dict()
+            if email == dici['name'] and Demand  == dici['other']:
+                print (f"DemandTabel {dici['name']} in {dici['other']} has beem deleted")
+                db.collection(u'DemandTabel').document(doc.id).delete()
+                flash("Delete Deman")
 
 
+        return redirect(url_for('deleteDeman'))
+    return render_template('DeleteDeman.html', form=form)
    
 
 
@@ -319,5 +328,5 @@ def updateDeveloper(post_id,text):
 
 
 
-if __name__ == '__main__':
+if _name_ == '_main_':
     app.run(debug=True)
