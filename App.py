@@ -1,23 +1,5 @@
-<<<<<<< HEAD
-
-=======
-<<<<<<< HEAD
 from flask import Flask,render_template,request,flash,session,redirect,url_for,abort
-from forms import LoginForm,SignOutForm,signupForm,addDemandForm
-=======
-<<<<<<< Updated upstream
->>>>>>> 5cd98cf5c04ea75deb75cad097c646e16a94a607
-from flask import Flask, render_template, request, flash, session, redirect, url_for, abort
-from forms import LoginForm, SignOutForm, signupForm, addDemandForm
-
-from flask import Flask,render_template,request,flash,session,redirect,url_for,abort
-from forms import LoginForm,SignOutForm,signupForm,addDemandForm
-<<<<<<< HEAD
-
-=======
->>>>>>> Stashed changes
->>>>>>> 722eda7077a4bbe418ac74ed9a1cbc8eab0dee39
->>>>>>> 5cd98cf5c04ea75deb75cad097c646e16a94a607
+from forms import  LoginForm,SignOutForm,signupForm,addDemandForm,DeleteDemanForm, UpdateDemanForm
 import pyrebase
 import firebase_admin
 from firebase_admin import auth
@@ -25,14 +7,8 @@ from firebase_admin import credentials
 from firebase_admin import firestore
 app = Flask(__name__)
 
-<<<<<<< HEAD
 app.config['SECRET_KEY']='khawla'
 import json 
-=======
-app = Flask(_name_)
-app.config['SECRET_KEY'] = 'khawla'
-import json
->>>>>>> 722eda7077a4bbe418ac74ed9a1cbc8eab0dee39
 import os
 import tempfile
 from werkzeug.utils import secure_filename
@@ -100,6 +76,14 @@ def scrumMaster():
 @app.route('/scrumMasterPage')
 def scrumMasterPage():
     return render_template('scrumMaster.html')
+
+@app.route('/Demand')
+def Demand():
+    return redirect(url_for('addDemandPage'))
+
+@app.route('/addDemandPage')
+def addDemandPage():
+    return render_template('addDemand.html')
 
 
 '''
@@ -202,8 +186,8 @@ def loginAdmine():
 
 
 
-@app.route('/userScrumMaster',methods=['GET', 'POST'])
-def userScrumMaster():
+@app.route('/userregisterScrumMaste',methods=['GET', 'POST'])
+def userregisterScrumMaste():
     form = SignOutForm()
     if form.validate_on_submit():
         return redirect(url_for("logout"))
@@ -221,36 +205,14 @@ def userAdmin():
     form = SignOutForm()
     if form.validate_on_submit():
         return redirect(url_for("logout"))
-<<<<<<< HEAD
-
-=======
-<<<<<<< HEAD
     return render_template('admin.html',form=form)
 
-=======
-<<<<<<< Updated upstream
->>>>>>> 5cd98cf5c04ea75deb75cad097c646e16a94a607
-    return render_template('admin.html', form=form)
-
-
-
-    return render_template('admin.html',form=form)
-
->>>>>>> 722eda7077a4bbe418ac74ed9a1cbc8eab0dee39
 @app.route('/userDemand',methods=['GET', 'POST'])
 def userDemand():
-    form = addDemandForm()
+    form = SignOutForm()
     if form.validate_on_submit():
         return redirect(url_for("logout"))
-    return render_template('developer.html',form=form)
-<<<<<<< HEAD
-
-=======
-<<<<<<< HEAD
-=======
->>>>>>> Stashed changes
->>>>>>> 722eda7077a4bbe418ac74ed9a1cbc8eab0dee39
->>>>>>> 5cd98cf5c04ea75deb75cad097c646e16a94a607
+    return render_template('addDemand.html',form=form)
 '''
 @app.route('/user',methods=['GET', 'POST'])
 def user():
@@ -287,21 +249,8 @@ def register():
            # return render_template('developer.html',form=form)
         except:
             print("email already exist")
-<<<<<<< HEAD
-
-=======
-<<<<<<< HEAD
     return render_template('register.html',form=form)
     
-=======
-<<<<<<< Updated upstream
->>>>>>> 5cd98cf5c04ea75deb75cad097c646e16a94a607
-    return render_template('register.html', form=form)
-
-    return render_template('register.html',form=form)
-
-
->>>>>>> 722eda7077a4bbe418ac74ed9a1cbc8eab0dee39
 
 @app.route('/registerScrumMaster',methods=['GET', 'POST'])
 def registerScrumMaster():
@@ -317,10 +266,10 @@ def registerScrumMaster():
             data={"email":email,"password":password,"id":id,"firstname":firstname,"lastname":lastname}
             db.collection(u'ScrumMastertabel').document().set({"email":email,"password":password,"id":id,"firstname":firstname,"lastname":lastname})
             print(auth.get_account_info(userregisterScrumMaster['idToken'])['ScrumMastertabel'][0]['localId'])
-            info=auth.get_account_info(userdeveloper['idToken'])['ScrumMastertabell'][0]['localId']
+            info=auth.get_account_info(userregisterScrumMaste['idToken'])['ScrumMastertabell'][0]['localId']
             db.collection(u'ScrumMastertabel').document(info).set(data)
-            return redirect(url_for("scrumMasterPage"),form=form)
-            #return render_template('scrumMaster.html',form=form)
+            #return redirect(url_for("scrumMasterPage"),form=form)
+            return render_template('scrumMaster.html',form=form)
         except:
             print("email already exist")
     return render_template('registerScrumMaster.html',form=form)
@@ -339,8 +288,8 @@ def registerAdmine():
             Developertabel=auth.create_user_with_email_and_password(email,password)
             data={"email":email,"password":password,"id":id,"firstname":firstname,"lastname":lastname}
             db.collection(u'Adminetabel').document().set({"email":email,"password":password,"id":id,"firstname":firstname,"lastname":lastname})
-            print(auth.get_account_info(userregisterScrumMaster['idToken'])['Adminetabel'][0]['localId'])
-            info=auth.get_account_info(userdeveloper['idToken'])['Adminetabel'][0]['localId']
+            print(auth.get_account_info(userAdmin['idToken'])['Adminetabel'][0]['localId'])
+            info=auth.get_account_info(userAdmin['idToken'])['Adminetabel'][0]['localId']
             db.collection(u'Adminetabel').document(info).set(data)
             return redirect(url_for("adminPage"),form=form)
            # return render_template('scrumMaster.html',form=form)
@@ -352,11 +301,92 @@ def registerAdmine():
 
 
 
+'''
+@app.route('/addDemand',methods=['GET', 'POST'])
+def addDemand():
+    form=addDemandForm()
+    if request.method == 'POST':
+        email=form.email.data
+        password=form.passwordl.data
+        demand=form.demand.data
+        sprintNumper=demand=form.sprintNumper.data
+        demandNumber=form.demandNumber.data
+        try: 
+            Developertabel=auth.create_user_with_email_and_password(email,password)
+            data={"email":email,"password":password,"demand":demand,"sprintNumper":sprintNumper,"demandNumber":demandNumber}
+            db.collection(u'DemandTabel').document().set({"email":email,"password":password,"demand":demand,"sprintNumper":sprintNumper,"demandNumber":demandNumber})
+            print(auth.get_account_info(userDemand['idToken'])['DemandTabel'][0]['localId'])
+            info=auth.get_account_info(userDemand['idToken'])['DemandTabel'][0]['localId']
+            db.collection(u'DemandTabel').document(info).set(data)
+            return redirect(url_for("addDemandPage"),form=form)
+           # return render_template('scrumMaster.html',form=form)
+        except:
+            print("demand already exist")
+            #return redirect(url_for("registerAdminPage"),form=form)
+
+    return render_template('registerAdmin.html',form=form)
 
 
-<<<<<<< HEAD
+'''
 
-=======
+
+@app.route('/addDemand', methods =['GET','POST'])
+def addDemand():
+    form = addDemandForm()
+    if form.validate_on_submit():
+        data = {
+        "name": form.email.data,
+        "other": form.Demand.data,
+        #"other": form.demandNumber.data,
+        #" Demand": form. Demand.data,
+
+        
+        }
+        docs = db.collection(u'DemandTabel').stream()
+        canAddDemand = True
+        for doc in docs:
+            dici = doc.to_dict()
+            #if data["name"] == dici['name'] and data["other"] == dici['other']and data["Demand"] == dici['Demand']:
+            
+            if data["name"] == dici['name'] and data["other"] == dici['other']:
+                canAddDemand = False
+
+        if canAddDemand:
+            db.collection(u'DemandTabel').document().set(data)
+            flash("add new Demand  ")
+        else:
+            flash(" Demand didint added ")
+
+        return redirect(url_for('addDemand'))
+    return render_template('addDemand.html', form=form)
+
+@app.route('/deleteDeman', methods =['GET','POST'])
+def deleteDeman():
+    form = DeleteDemanForm()
+    if form.validate_on_submit():
+
+        req = request.form
+        email = req["email"]
+        Demand  = req["Demand"]
+
+        docs = db.collection(u'DemandTabel').stream()
+        for doc in docs:
+            dici = doc.to_dict()
+            if email == dici['name'] and Demand  == dici['other']:
+                print (f"DemandTabel {dici['name']} in {dici['other']} has beem deleted")
+                db.collection(u'DemandTabel').document(doc.id).delete()
+                flash("Delete Deman")
+
+
+        return redirect(url_for('deleteDeman'))
+    return render_template('DeleteDeman.html', form=form)
+
+
+
+    
+
+
+
 @app.route('/updetdeveloper/<post_id>/<text>/update',methods=['GET', 'POST'])
 def updateDeveloper(post_id,text):
     form=updateComment()
@@ -364,67 +394,60 @@ def updateDeveloper(post_id,text):
         data={'text':form.comment.data}
         db.collection(u'Comments').document(post_id).update(data)
         return redirect(url_for('parks'))
-<<<<<<< HEAD
     return render_template('updateComment.html',form=form,admin=session["admin"],text=text)
 
 
-=======
-<<<<<<< Updated upstream
-    return render_template('updateComment.html', form=form, admin=session["admin"], text=text)
-=======
-    return render_template('updateComment.html',form=form,admin=session["admin"],text=text)
->>>>>>> 5cd98cf5c04ea75deb75cad097c646e16a94a607
 
+@app.route('/Guests/<string:email>/update', methods=['GET', 'POST'])
+def updateGuest(email):
+    print("into UpdateGuest")
+    docs = db.collection(u'Users').stream()
+    canMakePark = True
+    for doc in docs:
+        dici = doc.to_dict()
+        if  dici['email']==email :
+            canMakePark = False
+            rpost=dici['name']
+            emailGuest=dici['email']
+            wanted=dici
+    if canMakePark:
+        abort(403)
+           
+    else:
+        rrpost=rpost
+    ref_comment=db.collection(u'Users')
+    ref_my=ref_comment.where(u'email',u'==',email).stream()
+    for r in ref_my:
+        rr=r.to_dict()['email']
+        print(rr)
 
-
-
-
-
->>>>>>> 722eda7077a4bbe418ac74ed9a1cbc8eab0dee39
-@app.route('/addDemand',methods=['GET', 'POST'])
-def addDemand():
-    form=addDemandForm()
-    if request.method == 'POST':
-        email=form.email.data
-        demand=form.demand.data
-        siprintNumber=form.dsiprintNumber.data
-        try: 
-<<<<<<< HEAD
-           Demandabel=auth.create_user_with_email_and_password(email,demand,siprintNumbe)
-           data={"email":email,"demand":demand,"siprintNumber":siprintNumber}
-           db.collection(u'Demandtabel').document().set({"email":email,"demand":demand,"siprintNumber":siprintNumber})
-           print(auth.get_account_info(userdemand['idToken'])['demandtabel'][0]['localId'])
-           info=auth.get_account_info(userdemand['idToken'])['demandtabel'][0]['localId']
-           db.collection(u'demandtabel').document(info).set(data)
-           return redirect(url_for("addDemand"),form=form)
-           # return render_template('developer.html',form=form)
-        except:
-            print("deman already exist")
-=======
-            Developertabel=auth.create_user_with_email_and_password(email,password)
-            data={"email":email,"demand":demand,"siprintNumber":siprintNumber}
-<<<<<<< HEAD
-            db.collection(u'demandtabel').document().set({"email":email,"demand":demand,"siprintNumber":siprintNumber})
-=======
-            db.collection(u'Developertabel').document().set({"email":email,"demand":demand,"siprintNumber":siprintNumber})
->>>>>>> 722eda7077a4bbe418ac74ed9a1cbc8eab0dee39
-            print(auth.get_account_info(userdemand['idToken'])['demandtabel'][0]['localId'])
-            info=auth.get_account_info(userdeveloper['idToken'])['demandtabel'][0]['localId']
-            db.collection(u'demandtabel').document(info).set(data)
-            return redirect(url_for("addDemand"),form=form)
-           # return render_template('developer.html',form=form)
-        except:
-<<<<<<< HEAD
-            print("UserStory already exist")
-    return render_template('addDemand.html',form=form)  
-
-=======
-            print("email already exist")
->>>>>>> 5cd98cf5c04ea75deb75cad097c646e16a94a607
-    return render_template('addDemand.html',form=form)
-
-
-   
+    form = PostForm()
+    print(form.email.data)
+    if form.validate_on_submit():
+        print("after")
+        guest_email = form.email.data
+        guest_name = form.name.data
+        guest_last = form.last.data
+        guset_password=form.password.data
+        print(guset_password)
+        ref_comment=db.collection(u'Users')
+        ref_my=ref_comment.where(u'email',u'==',email).get()
+        field_updates={"name":guest_name,"last":guest_last,"email":guest_email}
+        for r in ref_my:
+            rr=ref_comment.document(r.id)
+            rr.update(field_updates)
+        
+        flash('המשתמש התעדכן בהצלחה!', 'success')
+        return redirect(url_for('AllGuest', email=emailGuest))
+    elif request.method == 'GET':
+        print("get")
+        docs
+        form.email.data = wanted['email']
+        form.name.data = wanted['name']
+        form.last.data=wanted['last']
+        form.password=wanted['password']
+    return render_template('CreateGuest.html', title='Update Guest',
+                           form=form, legend='Update Guest')   
 
 
 
@@ -433,12 +456,6 @@ def addDemand():
 
 
 
-<<<<<<< HEAD
-
-=======
->>>>>>> Stashed changes
->>>>>>> 722eda7077a4bbe418ac74ed9a1cbc8eab0dee39
->>>>>>> 5cd98cf5c04ea75deb75cad097c646e16a94a607
 
 
 if __name__ == '__main__':
