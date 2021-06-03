@@ -310,7 +310,7 @@ def deleteDeman():
         for doc in docs:
             dici = doc.to_dict()
             if email == dici['name'] and Demand  == dici['other']:
-                print (f"DemandTabel {dici['name']} in {dici['other']} has been deleted")
+                print (f"Demand {dici['name']} in {dici['other']} has been deleted")
                 db.collection(u'DemandTabel').document(doc.id).delete()
                 flash("Delete Deman")
 
