@@ -383,24 +383,24 @@ def deleteDeman():
 
 
 
-@app.route('/Guests/<string:email>/update', methods=['GET', 'POST'])
-def updateGuest(email):
-    print("into UpdateGuest")
-    docs = db.collection(u'Users').stream()
-    canMakePark = True
+@app.route('/Demands/<string:email>/update', methods=['GET', 'POST'])
+def updateDeman(email):
+    print("Into Update Users story!")
+    docs = db.collection(u'DemandTaple').stream()
+    canMakeDemand = True
     for doc in docs:
         dici = doc.to_dict()
         if  dici['email']==email :
-            canMakePark = False
+            canMakeDemand = False
             rpost=dici['name']
-            emailGuest=dici['email']
+            emailDemand=dici['email']
             wanted=dici
-    if canMakePark:
+    if canMakeDemand:
         abort(403)
            
     else:
         rrpost=rpost
-    ref_comment=db.collection(u'Users')
+    ref_comment=db.collection(u'DemandTaple')
     ref_my=ref_comment.where(u'email',u'==',email).stream()
     for r in ref_my:
         rr=r.to_dict()['email']
