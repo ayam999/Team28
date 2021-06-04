@@ -584,6 +584,35 @@ def UpdateDemand(email):
         
     return render_template('UpdateDemand.html', title='Update Demand',form=form, legend='Update Demand')
 
+@app.route('/addProject', methods =['GET','POST'])
+def addProject():
+    form = addProjectForm()
+    if form.validate_on_submit():
+        data = {
+        "name": form.email.data,
+        "other": form.Project.data,
+        #"other": form.demandNumber.data,
+        #" Demand": form. Demand.data,
+
+        
+        }
+        docs = db.collection(u'ProjectTabel').stream()
+        canAddProject = True
+        for doc in docs:
+            dici = doc.to_dict()
+            #if data["name"] == dici['name'] and data["other"] == dici['Project']and data["Project"] == dici['Project']:
+            
+            if data["name"] == dici['name'] and data["other"] == dici['other']:
+                canAddProject = False
+
+        if canAddProject:
+            db.collection(u'ProjectTabel').document().set(data)
+            flash("add new project  ")
+        else:
+            flash(" Project didnt added ")
+
+        return redirect(url_for('addProject'))
+    return render_template('addProject.html', form=form)
 
 
 if __name__ == '__main__':
