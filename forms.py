@@ -53,3 +53,11 @@ class DeleteDeveloperForm(FlaskForm):
     submit = SubmitField('Delete Developer')  
 
 
+
+class UpdateDeveloperForm(FlaskForm):
+    email=StringField(label='email',validators=[DataRequired(),Email()])
+    id=StringField(label='id',validators=[DataRequired(),Length(min=9,max=9)])
+    firstname=StringField(label='firstname',validators=[DataRequired(),Length(min=3,max=20)])
+    lastname=StringField(label='lastname',validators=[DataRequired(),Length(min=3,max=20)])
+    password=PasswordField(label='password',validators=[DataRequired(),Length(min=6,max=8)])
+    submit=SubmitField(label='Update')
