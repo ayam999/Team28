@@ -66,5 +66,5 @@ class UpdateDeveloperForm(FlaskForm):
 
 
 class DeleteScrumMaster(FlaskForm):
-    email=SyntaxWarning("email",validators=[DataRequired])
+    email=StringField("email",validators=[DataRequired])
     submit=SubmitField('Delete ScrumMaster')
