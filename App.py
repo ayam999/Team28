@@ -636,7 +636,36 @@ def deleteProject():
         return redirect(url_for('deleteProject'))
     return render_template('DeleteProject.html', form=form)
 
+@app.route('/addProject', methods =['GET','POST'])
+def addSprint():
+    form = addSprintForm()
+    if form.validate_on_submit():
+        data = {
+        "name": form.email.data,
+        "other": form.Sprint.data,
+        #"other": form.demandNumber.data,
+        #" Demand": form. Demand.data,
 
+        
+        }
+        docs = db.collection(u'SprintTabel').stream()
+        canAddSprint = True
+        for doc in docs:
+            dici = doc.to_dict()
+            #if data["name"] == dici['name'] and data["other"] == dici['Sprint']and data["Sprint"] == dici['Sprint']:
+            
+            if data["name"] == dici['name'] and data["other"] == dici['other']:
+                canAddSprint = False
+
+        if canAddSprint:
+            db.collection(u'SprintTabel').document().set(data)
+            flash("add new sprint  ")
+        else:
+            flash(" Sprint didnt added ")
+
+        return redirect(url_for('addSprint'))
+    return render_template('addSprint.html', form=form)
+    
 
 if __name__ == '__main__':
     app.run(debug=True)
