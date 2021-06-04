@@ -536,6 +536,53 @@ def UpdateScrumMaster(email):
     return render_template('UpdateScrumMaster.html', title='Update ScrumMaster',form=form, legend='Update Developer')
     
 
+    
+@app.route('/Demand/<string:email>/update', methods=['GET', 'POST'])
+def UpdateDemand(email):
+    print("into UpdateScrumMaster")
+    docs = db.collection(u'DemandTabel').stream()
+    canMakeDemand = True
+    for doc in docs:
+        dici = doc.to_dict()
+        if  dici['name']==email :
+            canMakeDemand = False
+            rpost=dici['other']
+            emailDemand=dici['name']
+            wanted=dici
+    if canMakeDemand:
+        abort(403)
+           
+    else:
+        rrpost=rpost
+    ref_comment=db.collection(u'DemandTabel')
+    ref_my=ref_comment.where(u'name',u'==',email).stream()
+    for r in ref_my:
+        rr=r.to_dict()['name']
+        print(rr)
+
+    form = UpdateSDemandForm()
+    print(form.email.data)
+    if form.validate_on_submit():
+        print("after")
+        email = form.email.data
+        Demand = form.Demand.data
+        #print(password)
+        ref_comment=db.collection(u'DemandTabel')
+        ref_my=ref_comment.where(u'name',u'==',email).get()
+        field_updates={"name":email,"other":Demand}
+        for r in ref_my:
+            rr=ref_comment.document(r.id)
+            rr.update(field_updates)
+        
+        flash('updating success', 'success')
+        return redirect(url_for('UpdateDemand', email=emailDemand))
+    elif request.method == 'GET':
+        print("get")
+        docs
+        form.email.data = wanted['name']
+        form.Demand.data = wanted['other']
+        
+    return render_template('UpdateDemand.html', title='Update Demand',form=form, legend='Update Demand')
 
 
 
