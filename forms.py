@@ -51,3 +51,5 @@ class DeleteDemanForm(FlaskForm):
 class DeleteDeveloperForm(FlaskForm):
     email = StringField("email", validators=[DataRequired()])
     submit = SubmitField('Delete Developer')  
+
+
