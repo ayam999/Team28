@@ -1,1 +1,40 @@
-///
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div  class="container w-50">
+      <form method="POST" action="" >
+          {{ form.hidden_tag() }}
+          <fieldset>
+              <legend class="border-bottom mb-4">add Demand </legend>
+               
+              {{ form.email.label(class="form-control-label") }}
+              {% if form.email.errors %}
+
+               {{ form.email(class="from-control form-control-lg is-invalid") }}
+                  {% for error in form.email.errors %}
+                      <span> {{error}}</span>
+                   {% endfor %}
+              {% else %}
+          {{ form.email(class="from-control form-control-lg") }}
+              {%endif%}
+               </div>
+               
+            
+
+        
+
+               <div class="form-group">
+                {{ form.Sprint.label(class="form-control-label") }}
+                {%if form.Sprint.errors%}
+                 {{ form.Sprint(class="from-control form-control-lg is-invalid") }}
+                    {% for error in form.email.errors %}
+                        <span> {{error}}</span>
+                     {% endfor %}
+                {% else %}
+            {{ form.Sprint(class="from-control form-control-lg") }}
+                {%endif%}
+                 </div>
