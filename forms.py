@@ -2,6 +2,7 @@
 from flask import  Flask,render_template,session,redirect,url_for
 from wtforms import StringField, PasswordField , SubmitField , RadioField,TextAreaField
 from flask_wtf import FlaskForm
+from wtforms import validators
 from  wtforms.validators import  DataRequired,Length,EqualTo, Email
 from flask_wtf import FlaskForm
 
@@ -61,3 +62,9 @@ class UpdateDeveloperForm(FlaskForm):
     lastname=StringField(label='lastname',validators=[DataRequired(),Length(min=3,max=20)])
     password=PasswordField(label='password',validators=[DataRequired(),Length(min=6,max=8)])
     submit=SubmitField(label='Update')
+
+
+
+class DeleteScrumMaster(FlaskForm):
+    email=SyntaxWarning("email",validators=[DataRequired])
+    submit=SubmitField('Delete ScrumMaster')
