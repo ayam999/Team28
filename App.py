@@ -459,6 +459,29 @@ def UpdateDeveloper(email):
     return render_template('UpdateDeveloper.html', title='Update Developer',form=form, legend='Update Developer')
 
 
+ 
+@app.route('/deleteScrumMaster', methods =['GET','POST'])
+def deleteScrumMaster():
+    form = DeleteScrumMasterForm()
+    
+    if form.validate_on_submit():
+
+        req = request.form
+        emailScrumMaster = req["email"]
+        
+        docs=db.collection(u'ScrumMastertabel').stream()
+        for doc in docs:
+            dici = doc.to_dict()
+            if emailScrumMaster == dici['email']:
+                print (f"ScrumMaster {dici['email']} in {dici['firstname']} has beem deleted")
+                db.collection(u'ScrumMastertabel').document(doc.id).delete()
+                flash("ScrumMaster has been deleted")
+            else:
+                print("this ScrumMaster is not exits")
+       
+
+        return redirect(url_for('deleteScrumMaster'))
+    return render_template('deleteScrumMaster.html', form=form,)
 
 
 
