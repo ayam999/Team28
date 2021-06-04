@@ -636,7 +636,7 @@ def deleteProject():
         return redirect(url_for('deleteProject'))
     return render_template('DeleteProject.html', form=form)
 
-@app.route('/addProject', methods =['GET','POST'])
+@app.route('/addSprint', methods =['GET','POST'])
 def addSprint():
     form = addSprintForm()
     if form.validate_on_submit():
