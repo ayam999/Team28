@@ -1,5 +1,5 @@
 from flask import Flask,render_template,request,flash,session,redirect,url_for,abort
-from forms import  LoginForm,SignOutForm,signupForm,addDemandForm,DeleteDemanForm,DeleteDeveloperForm,UpdateDeveloperForm,DeleteScrumMasterForm 
+from forms import  LoginForm,SignOutForm,signupForm,addDemandForm,DeleteDemanForm,DeleteDeveloperForm,UpdateDeveloperForm,DeleteScrumMasterForm,UpdateScrumMasterForm 
 import pyrebase
 import firebase_admin
 from firebase_admin import auth
@@ -483,7 +483,58 @@ def deleteScrumMaster():
         return redirect(url_for('deleteScrumMaster'))
     return render_template('deleteScrumMaster.html', form=form,)
 
+@app.route('/ScrumMaster/<string:email>/update', methods=['GET', 'POST'])
+def UpdateScrumMaster(email):
+    print("into UpdateScrumMaster")
+    docs = db.collection(u'ScrumMastertabel').stream()
+    canMakeScrum = True
+    for doc in docs:
+        dici = doc.to_dict()
+        if  dici['email']==email :
+            canMakeScrum = False
+            rpost=dici['firstname']
+            emailScrum=dici['email']
+            wanted=dici
+    if canMakeScrum:
+        abort(403)
+           
+    else:
+        rrpost=rpost
+    ref_comment=db.collection(u'ScrumMastertabel')
+    ref_my=ref_comment.where(u'email',u'==',email).stream()
+    for r in ref_my:
+        rr=r.to_dict()['email']
+        print(rr)
 
+    form = UpdateScrumMasterForm()
+    print(form.email.data)
+    if form.validate_on_submit():
+        print("after")
+        email = form.email.data
+        firstName = form.firstname.data
+        id=form.id.data
+        lastName = form.lastname.data
+        password=form.password.data
+        print(password)
+        ref_comment=db.collection(u'ScrumMastertabel')
+        ref_my=ref_comment.where(u'email',u'==',email).get()
+        field_updates={"firstname":firstName,"lastname":lastName,"email":email,"id":id,"password":password}
+        for r in ref_my:
+            rr=ref_comment.document(r.id)
+            rr.update(field_updates)
+        
+        flash('updating success', 'success')
+        return redirect(url_for('UpdateScrumMaster', email=emailScrum))
+    elif request.method == 'GET':
+        print("get")
+        docs
+        form.email.data = wanted['email']
+        form.firstname.data = wanted['firstname']
+        form.id.data = wanted['id']
+        form.lastname.data=wanted['lastname']
+        form.password.data=wanted['password']
+    return render_template('UpdateScrumMaster.html', title='Update ScrumMaster',form=form, legend='Update Developer')
+    
 
 
 
