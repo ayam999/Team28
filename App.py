@@ -406,6 +406,58 @@ def deleteDeveloper():
     return render_template('deleteDeveloper.html', form=form,)
 
 
+@app.route('/Developers/<string:email>/update', methods=['GET', 'POST'])
+def UpdateDeveloper(email):
+    print("into UpdateDeveloper")
+    docs = db.collection(u'Developertabel').stream()
+    canMakeDev = True
+    for doc in docs:
+        dici = doc.to_dict()
+        if  dici['email']==email :
+            canMakeDev = False
+            rpost=dici['firstname']
+            emailDev=dici['email']
+            wanted=dici
+    if canMakeDev:
+        abort(403)
+           
+    else:
+        rrpost=rpost
+    ref_comment=db.collection(u'Developertabel')
+    ref_my=ref_comment.where(u'email',u'==',email).stream()
+    for r in ref_my:
+        rr=r.to_dict()['email']
+        print(rr)
+
+    form = UpdateDeveloperForm()
+    print(form.email.data)
+    if form.validate_on_submit():
+        print("after")
+        email = form.email.data
+        firstName = form.firstname.data
+        id=form.id.data
+        lastName = form.lastname.data
+        password=form.password.data
+        print(password)
+        ref_comment=db.collection(u'Developertabel')
+        ref_my=ref_comment.where(u'email',u'==',email).get()
+        field_updates={"firstname":firstName,"lastname":lastName,"email":email,"id":id,"password":password}
+        for r in ref_my:
+            rr=ref_comment.document(r.id)
+            rr.update(field_updates)
+        
+        flash('updating success', 'success')
+        return redirect(url_for('UpdateDeveloper', email=emailDev))
+    elif request.method == 'GET':
+        print("get")
+        docs
+        form.email.data = wanted['email']
+        form.firstname.data = wanted['firstname']
+        form.id.data = wanted['id']
+        form.lastname.data=wanted['lastname']
+        form.password.data=wanted['password']
+    return render_template('UpdateDeveloper.html', title='Update Developer',form=form, legend='Update Developer')
+
 
 
 
