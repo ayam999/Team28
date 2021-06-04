@@ -78,3 +78,8 @@ class UpdateScrumMasterForm(FlaskForm):
     password=PasswordField(label='password',validators=[DataRequired(),Length(min=6,max=8)])
     submit=SubmitField(label='Update')
 
+class UpdateSDemandForm(FlaskForm):
+    email = StringField("email", validators=[DataRequired()])
+
+    Demand = StringField("Demand", validators=[DataRequired()])
+    submit=SubmitField(label='Update')
