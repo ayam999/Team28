@@ -615,5 +615,28 @@ def addProject():
     return render_template('addProject.html', form=form)
 
 
+@app.route('/deleteProject', methods =['GET','POST'])
+def deleteProject():
+    form = DeleteProjectForm()
+    if form.validate_on_submit():
+
+        req = request.form
+        email = req["email"]
+        Project  = req["Project"]
+
+        docs = db.collection(u'ProjectTabel').stream()
+        for doc in docs:
+            dici = doc.to_dict()
+            if email == dici['name'] and Project  == dici['other']:
+                print (f"ProjectTabel {dici['name']} in {dici['other']} has beem deleted")
+                db.collection(u'ProjectTabel').document(doc.id).delete()
+                flash("Delete Project")
+
+
+        return redirect(url_for('deleteProject'))
+    return render_template('DeleteProject.html', form=form)
+
+
+
 if __name__ == '__main__':
     app.run(debug=True)
