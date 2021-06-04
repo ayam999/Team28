@@ -18,6 +18,7 @@ class signupForm(FlaskForm):
 
 
 
+
 class LoginForm(FlaskForm):
     email=StringField(label='email',validators=[DataRequired(),Email()])
     password = PasswordField(label='password', validators=[DataRequired(), Length(min=6, max=8)])
@@ -46,4 +47,9 @@ class DeleteDemanForm(FlaskForm):
 
     Demand = StringField("Demand", validators=[DataRequired()])
     submit = SubmitField('Delete Deman')
-   
+
+class DeleteDeveloperForm(FlaskForm):
+    email = StringField("email", validators=[DataRequired()])
+    submit = SubmitField('Delete Developer')  
+
+
