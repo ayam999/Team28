@@ -102,9 +102,9 @@ class addSprintForm(FlaskForm):
     Sprint= StringField("Sprint", validators=[DataRequired()])
     submit = SubmitField('add Sprint')  
 
-class DeleteProjectForm(FlaskForm):
+class DeleteSprintForm(FlaskForm):
     email = StringField("email", validators=[DataRequired()])
 
-    Project = StringField("Project", validators=[DataRequired()])
+    Sprint = StringField("Sprint", validators=[DataRequired()])
 
-    submit = SubmitField('Delete Project')     
+    submit = SubmitField('Delete Sprint')     
