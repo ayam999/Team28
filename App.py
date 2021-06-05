@@ -539,25 +539,26 @@ def UpdateScrumMaster(email):
     
 @app.route('/Demand/<string:email>/update', methods=['GET', 'POST'])
 def UpdateDemand(email):
-    print("into UpdateScrumMaster")
-    docs = db.collection(u'DemandTabel').stream()
+    print("into Update Demands")
+    docs = db.collection(u'DemandsTaple').stream()
     canMakeDemand = True
     for doc in docs:
         dici = doc.to_dict()
-        if  dici['name']==email :
+        if  dici['email']==email :
             canMakeDemand = False
-            rpost=dici['other']
-            emailDemand=dici['name']
+            rpost=dici['demand']
+            emailDemand=dici['email']
+            status=dici['status']
             wanted=dici
     if canMakeDemand:
         abort(403)
            
     else:
         rrpost=rpost
-    ref_comment=db.collection(u'DemandTabel')
-    ref_my=ref_comment.where(u'name',u'==',email).stream()
+    ref_comment=db.collection(u'DemandsTaple')
+    ref_my=ref_comment.where(u'email',u'==',email).stream()
     for r in ref_my:
-        rr=r.to_dict()['name']
+        rr=r.to_dict()['email']
         print(rr)
 
     form = UpdateSDemandForm()
@@ -566,10 +567,11 @@ def UpdateDemand(email):
         print("after")
         email = form.email.data
         Demand = form.Demand.data
+        status=form.status.data
         #print(password)
-        ref_comment=db.collection(u'DemandTabel')
-        ref_my=ref_comment.where(u'name',u'==',email).get()
-        field_updates={"name":email,"other":Demand}
+        ref_comment=db.collection(u'DemandsTaple')
+        ref_my=ref_comment.where(u'email',u'==',email).get()
+        field_updates={"email":email,"demand":Demand,"status":status}
         for r in ref_my:
             rr=ref_comment.document(r.id)
             rr.update(field_updates)
@@ -579,10 +581,12 @@ def UpdateDemand(email):
     elif request.method == 'GET':
         print("get")
         docs
-        form.email.data = wanted['name']
-        form.Demand.data = wanted['other']
+        form.email.data = wanted['email']
+        form.Demand.data = wanted['demand']
+        form.status.data=wanted['status']
         
     return render_template('UpdateDemand.html', title='Update Demand',form=form, legend='Update Demand')
+
 
 @app.route('/addProject', methods =['GET','POST'])
 def addProject():
