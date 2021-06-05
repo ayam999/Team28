@@ -79,9 +79,10 @@ class UpdateScrumMasterForm(FlaskForm):
     submit=SubmitField(label='Update')
 
 class UpdateSDemandForm(FlaskForm):
-    email = StringField("email", validators=[DataRequired()])
+    email = StringField(label="Email", validators=[DataRequired()])
 
-    Demand = StringField("Demand", validators=[DataRequired()])
+    Demand = StringField(label="Demand", validators=[DataRequired()])
+    status=SelectField(label='status',choices = [('To do', 'To do'), ('In Progress', 'In Progress'),('Done','Done')])
     submit=SubmitField(label='Update')
 
 
