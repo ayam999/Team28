@@ -1,55 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
+<!--we can see here the page that show Demands-->
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<div  class="container w-50">
-      <form method="POST" action="" >
-          {{ form.hidden_tag() }}
-          <fieldset>
-              <legend class="border-bottom mb-4">Update Demand </legend>
-               
-              {{ form.email.label(class="form-control-label") }}
-              {% if form.email.errors %}
+    <body>
 
-               {{ form.email(class="from-control form-control-lg is-invalid") }}
-                  {% for error in form.email.errors %}
-                      <span> {{error}}</span>
-                   {% endfor %}
-               {% else %}
-               {{ form.email(class="from-control form-control-lg") }}
-               {%endif%}
-            
-               
-               </div>
-               <div class="form-group">
-                {{ form.Demand.label(class="form-control-label") }}
-                {%if form.Demand.errors%}
-                 {{ form.Demand(class="from-control form-control-lg is-invalid") }}
-                    {% for error in form.id.errors %}
-                        <span> {{ error }}</span>
-                     {% endfor %}
-                {% else %}
-            {{ form.Demand(class="from-control form-control-lg") }}
-                {%endif%}
-                 </div>
+        <style>p.indent{ padding-left: 1.8em }</style>
   
-                 
-  
-              
-  
-               
-          </fieldset>
-      <div class="field-group my-4">
-          {{ form.submit(class='btn btn-online-info') }}
-      </div>
 
 
-          </form>
 
-></div>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main2.css') }}">
+
+<h2>The User Story </h2>
+    {% for guest in guests %}
+        <article class="media content-section">
+          <div class="media-body">
+            <div class="article-metadata">
+            </div>
+            <h2> {{ guest.to_dict()['name'] }}</h2>
+            <p class="article-content">{{ guest.to_dict()['other']  }}</p>
+           <a href="{{ url_for('UpdateDemand',email=guest.to_dict()['name']) }}">
+            <button type="button" class="btn btn-secondary" >Update</button>
+           </a> 
+           
+           
+           <a href="{{ url_for('deleteDeman',email=guest.to_dict()['name']) }}">
+            <button type="button" class="btn btn-secondary" >Delete</button>
+           </a> 
+          </div>
+        </article>
+    {% endfor %}
 
 </body>
-</html>
+</head>
