@@ -44,9 +44,9 @@ class addDemandForm(FlaskForm):
 
 
 class DeleteDemanForm(FlaskForm):
-    email = StringField("email", validators=[DataRequired()])
-
-    Demand = StringField("Demand", validators=[DataRequired()])
+    email = StringField(label="email", validators=[DataRequired()])
+    Demand = StringField(label="Demand", validators=[DataRequired()])
+    status=SelectField(label='status',choices = [('To do', 'To do'), ('In Progress', 'In Progress'),('Done','Done')])
     submit = SubmitField('Delete Deman')
 
 class DeleteDeveloperForm(FlaskForm):
