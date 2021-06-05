@@ -88,7 +88,6 @@ class UpdateSDemandForm(FlaskForm):
 class addProjectForm(FlaskForm):
     email = StringField("email", validators=[DataRequired()])
     Project= StringField("Project", validators=[DataRequired()])
-    #demandNumber= StringField("demandNumber", validators=[DataRequired()])
     submit = SubmitField('add project')  
 
 class DeleteProjectForm(FlaskForm):
