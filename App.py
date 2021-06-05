@@ -692,6 +692,31 @@ def deleteSprint():
         return redirect(url_for('deleteSprint'))
     return render_template('DeleteSprint.html', form=form)
 
+@app.route('/list', methods=['GET'])
+def allDemands():
+    
+    """
+        read() : Fetches documents from Firestore collection as JSON
+        todo : Return document that matches query ID
+        all_todos : Return all documents
+    """
+    #try:
+    # Check if ID was passed to URL query
+    #todo_email = request.args.get('name')    
+    #if todo_email:
+            
+    #todo = ref_comment.document(todo_email).get()
+    #return jsonify(todo.to_dict()), 200
+    #else:
+    #all_todos = [doc.to_dict() for doc in ref_comment.stream()]
+    #return jsonify(all_todos), 200
+    #except Exception as e:
+    #return f"An Error Occured: {e}"
+    guests=db.collection(u'DemandTabel').stream()
+    return render_template('AllDemnads.html', guests=guests)
+
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)
