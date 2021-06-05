@@ -53,6 +53,16 @@ def developer():
 def developerPage():
     return render_template('developer.html')
 
+<<<<<<< Updated upstream
+=======
+///////////////////////////////////////
+
+@app.route('/developerPage')
+def deveeeloperPage():
+    return render_template('developer.html')
+/////////////////////////////////////////////
+
+>>>>>>> Stashed changes
 @app.route('/admin')
 def admin():
     return redirect(url_for('adminPage'))
