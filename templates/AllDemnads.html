@@ -15,14 +15,14 @@
           <div class="media-body">
             <div class="article-metadata">
             </div>
-            <h2> {{ guest.to_dict()['name'] }}</h2>
-            <p class="article-content">{{ guest.to_dict()['other']  }}</p>
-           <a href="{{ url_for('UpdateDemand',email=guest.to_dict()['name']) }}">
+            <h2> {{ guest.to_dict()['email'] }}</h2>
+            <p class="article-content">{{ guest.to_dict()['demand']  }}</p>
+           <a href="{{ url_for('UpdateDemand',email=guest.to_dict()['email']) }}">
             <button type="button" class="btn btn-secondary" >Update</button>
            </a> 
            
            
-           <a href="{{ url_for('deleteDeman',email=guest.to_dict()['name']) }}">
+           <a href="{{ url_for('deleteDeman',email=guest.to_dict()['email']) }}">
             <button type="button" class="btn btn-secondary" >Delete</button>
            </a> 
           </div>

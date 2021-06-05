@@ -695,7 +695,7 @@ def deleteSprint():
 @app.route('/list', methods=['GET'])
 def allDemands():
     
-    guests=db.collection(u'DemandTabel').stream()
+    guests=db.collection(u'DemandsTaple').stream()
     return render_template('AllDemnads.html', guests=guests)
 
 
