@@ -667,27 +667,27 @@ def addSprint():
     return render_template('addSprint.html', form=form)
 
 
-@app.route('/deleteProject', methods =['GET','POST'])
-def deleteProject():
-    form = DeleteProjectForm()
+@app.route('/deleteSprint', methods =['GET','POST'])
+def deleteSprint():
+    form = DeleteSprintForm()
     if form.validate_on_submit():
 
         req = request.form
         email = req["email"]
-        Project  = req["Project"]
+        Sprint  = req["Sprint"]
 
-        docs = db.collection(u'ProjectTabel').stream()
+        docs = db.collection(u'SprintTabel').stream()
         for doc in docs:
             dici = doc.to_dict()
-            if email == dici['name'] and Project  == dici['other']:
-                print (f"ProjectTabel {dici['name']} in {dici['other']} has beem deleted")
-                db.collection(u'ProjectTabel').document(doc.id).delete()
-                flash("Delete Project")
+            if email == dici['name'] and Sprint  == dici['other']:
+                print (f"SprintTabel {dici['name']} in {dici['other']} has beem deleted")
+                db.collection(u'SprintTabel').document(doc.id).delete()
+                flash("Delete Sprint")
 
 
-        return redirect(url_for('deleteProject'))
-    return render_template('DeleteProject.html', form=form)
+        return redirect(url_for('deleteSprint'))
+    return render_template('DeleteSprint.html', form=form)
 
-    
+
 if __name__ == '__main__':
     app.run(debug=True)
