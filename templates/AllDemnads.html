@@ -1,0 +1,33 @@
+<!--we can see here the page that show Demands-->
+<head>
+    <body>
+
+        <style>p.indent{ padding-left: 1.8em }</style>
+  
+
+
+
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main2.css') }}">
+
+<h2>The User Story </h2>
+    {% for guest in guests %}
+        <article class="media content-section">
+          <div class="media-body">
+            <div class="article-metadata">
+            </div>
+            <h2> {{ guest.to_dict()['email'] }}</h2>
+            <p class="article-content">{{ guest.to_dict()['demand']  }}</p>
+           <a href="{{ url_for('UpdateDemand',email=guest.to_dict()['email']) }}">
+            <button type="button" class="btn btn-secondary" >Update</button>
+           </a> 
+           
+           
+           <a href="{{ url_for('deleteDeman',email=guest.to_dict()['email']) }}">
+            <button type="button" class="btn btn-secondary" >Delete</button>
+           </a> 
+          </div>
+        </article>
+    {% endfor %}
+
+</body>
+</head>

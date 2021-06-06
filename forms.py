@@ -1,6 +1,6 @@
 #from App import Demand
 from flask import  Flask,render_template,session,redirect,url_for
-from wtforms import StringField, PasswordField , SubmitField , RadioField,TextAreaField
+from wtforms import StringField, PasswordField , SubmitField , RadioField,TextAreaField,SelectField
 from flask_wtf import FlaskForm
 from wtforms import validators
 from  wtforms.validators import  DataRequired,Length,EqualTo, Email
@@ -44,9 +44,9 @@ class addDemandForm(FlaskForm):
 
 
 class DeleteDemanForm(FlaskForm):
-    email = StringField("email", validators=[DataRequired()])
-
-    Demand = StringField("Demand", validators=[DataRequired()])
+    email = StringField(label="email", validators=[DataRequired()])
+    Demand = StringField(label="Demand", validators=[DataRequired()])
+    status=SelectField(label='status',choices = [('To do', 'To do'), ('In Progress', 'In Progress'),('Done','Done')])
     submit = SubmitField('Delete Deman')
 
 class DeleteDeveloperForm(FlaskForm):
@@ -79,9 +79,10 @@ class UpdateScrumMasterForm(FlaskForm):
     submit=SubmitField(label='Update')
 
 class UpdateSDemandForm(FlaskForm):
-    email = StringField("email", validators=[DataRequired()])
+    email = StringField(label="Email", validators=[DataRequired()])
 
-    Demand = StringField("Demand", validators=[DataRequired()])
+    Demand = StringField(label="Demand", validators=[DataRequired()])
+    status=SelectField(label='status',choices = [('To do', 'To do'), ('In Progress', 'In Progress'),('Done','Done')])
     submit=SubmitField(label='Update')
 
 
