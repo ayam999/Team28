@@ -50,7 +50,7 @@ class TestHello(unittest.TestCase):
             db.collection(u'Adminetabel').document().set(data)
             self.assertTrue(False)
         except:
-<<<<<<< Updated upstream
+
             self.assertTrue(True)
     def test_registerAdmine(self):
      try:
@@ -93,8 +93,7 @@ class TestHello(unittest.TestCase):
             db.collection(u'ScrumMastertabel').document().set(data)
             self.assertTrue(False)
         except:
-=======
->>>>>>> Stashed changes
+
             self.assertTrue(False)
 
     def test_adddemand(self):
