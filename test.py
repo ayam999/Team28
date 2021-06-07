@@ -50,6 +50,7 @@ class TestHello(unittest.TestCase):
             db.collection(u'Adminetabel').document().set(data)
             self.assertTrue(False)
         except:
+<<<<<<< Updated upstream
             self.assertTrue(True)
     def test_registerAdmine(self):
      try:
@@ -92,6 +93,8 @@ class TestHello(unittest.TestCase):
             db.collection(u'ScrumMastertabel').document().set(data)
             self.assertTrue(False)
         except:
+=======
+>>>>>>> Stashed changes
             self.assertTrue(False)
 
     def test_adddemand(self):
@@ -107,7 +110,54 @@ class TestHello(unittest.TestCase):
      except:
             self.assertTrue(False)
 
-    
+
+    def test_passadddemand(self):
+     try:
+         demand="as a developer i can add deman "
+         email="khawla@gmail.com"
+         status="To do"
+        
+         siprintNumbe="1" 
+         data={"email":email,"demand":demand,"status":status}
+         db.collection(u'DemandsTaple').document().set({"demand":demand,"email":email,"status":status})
+         self.assertTrue(False)
+     except:
+            self.assertTrue(False)
+
+    def test_registerdeveloper(self):
+     try:
+         email="mmm@gmail.co"
+         firstname="gggg"
+         id="000111110"
+         lastname="ggg"
+         password="123456"
+         data={"email":email,"firstname":firstname,"id":id,"lastname":lastname,"password":password}
+         db.collection(u'Adminetabel').document().set(data)
+         self.assertTrue(True)
+     except:
+            self.assertTrue(False)
+   
+
+    def test_passdregisterdeveloper(self):
+     try:
+         email="55@gmail.co"
+         firstname="ff"
+         id="66666"
+         lastname="fff"
+         password="12333"
+         data={"email":email,"firstname":firstname,"id":id,"lastname":lastname,"password":password}
+         db.collection(u'Adminetabel').document().set(data)
+         self.assertTrue(False)
+     except:
+            self.assertTrue(False)
+   
+
+
+
+
+
+
+
 
     
 

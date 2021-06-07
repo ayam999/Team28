@@ -6,16 +6,17 @@ import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
 
-Config = {
-  apiKey: "AIzaSyDj83l21N_0vFiJP2_RhiUTN2qr8X84dfI",
-  authDomain: "flaskdb-fb78d.firebaseapp.com",
-  databaseURL: "https://flaskdb-fb78d-default-rtdb.firebaseio.com",
-  projectId: "flaskdb-fb78d",
-  storageBucket: "flaskdb-fb78d.appspot.com",
-  messagingSenderId: "291466022293",
-  appId: "1:291466022293:web:462cf3b91963df70b87a9c",
-  measurementId: "G-W08M46DJ3R"
+config={
+  "apiKey": "AIzaSyDj83l21N_0vFiJP2_RhiUTN2qr8X84dfI" ,
+  "authDomain": "flaskdb-fb78d.firebaseapp.com",
+  "databaseURL": "https://flaskdb-fb78d-default-rtdb.firebaseio.com",
+  "projectId": "flaskdb-fb78d",
+  "storageBucket": "flaskdb-fb78d.appspot.com",
+  "messagingSenderId": "291466022293",
+  "appId": "1:291466022293:web:462cf3b91963df70b87a9c",
+  "measurementId": "G-W08M46DJ3R"
 }
+
 
 
 db = firestore.client()
@@ -53,12 +54,28 @@ class TestHello(unittest.TestCase):
 
     def test_adddemand(self):
      try:
-         email="khawla@gmail.com"
          demand="as a developer i can add deman "
+         email="khawla@gmail.com"
+         status="to do"
         
          siprintNumbe="1" 
-         data={"email":email,"demand":demand,"siprintNumber":siprintNumber}
-         db.collection(u'Developertabel').document().set({"email":email,"demand":demand,"siprintNumber":siprintNumber})
+         data={"email":email,"demand":demand,"status":status}
+         db.collection(u'DemandsTaple').document().set({"demand":demand,"email":email,"status":status})
          self.assertTrue(True)
      except:
             self.assertTrue(False)
+
+
+
+
+
+
+
+
+
+
+
+
+
+if __name__ == '__main__':
+    unittest.main()
