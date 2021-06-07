@@ -66,7 +66,7 @@ class TestHello(unittest.TestCase):
             self.assertTrue(False)
 
     #Register User with uncorrect details
-    def test_registeScrumMaster_uncorrect(self):
+    def test_registeScrumMaster_correct(self):
         try:
     
             email="dodo@gmail.com"
