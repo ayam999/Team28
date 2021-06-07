@@ -1,4 +1,6 @@
 import unittest
+from flask import app
+from flask_wtf import form
 import pyrebase
 import App
 #from App import delete_info_item 
@@ -52,19 +54,7 @@ class TestHello(unittest.TestCase):
         except:
 
             self.assertTrue(True)
-    def test_registerAdmine(self):
-     try:
-         email="dodo@gmail.com"
-         firstname="dodosam"
-         id="123456789"
-         lastname="dedosam"
-         password="123456" 
-         data={"email":email,"firstname":firstname,"id":id,"lastname":lastname,"password":password}
-         db.collection(u'ScrumMastertabel').document().set(data)
-         self.assertTrue(True)
-     except:
-            self.assertTrue(False)
-
+    
     #Register User with uncorrect details
     def test_registeScrumMaster_correct(self):
         try:
@@ -110,7 +100,7 @@ class TestHello(unittest.TestCase):
             self.assertTrue(False)
 
 
-    def test_passadddemand(self):
+    def test_falladddemand(self):
      try:
          demand="as a developer i can add deman "
          email="khawla@gmail.com"
@@ -149,7 +139,7 @@ class TestHello(unittest.TestCase):
             self.assertTrue(False)
    
 
-    def test_passdregisterdeveloper(self):
+    def test_fallregisterdeveloper(self):
      try:
          email="55@gmail.co"
          firstname="ff"
@@ -178,7 +168,7 @@ class TestHello(unittest.TestCase):
             self.assertTrue(False)
 
  
-    def test_delete_passddeveloper(self):
+    def test_delete_falldeveloper(self):
         try:
             email="newRr@gmail.com"
             firstname="ff"
@@ -194,8 +184,124 @@ class TestHello(unittest.TestCase):
 
 
 
+    #Delete exist park
+    def test_delete_Project(self):
+        try:
+            parkName = "newTestPark"
+            parkAddress = "bialik"
 
-    
+            docs = db.collection(u'Parks').stream()
+            for doc in docs:
+                dici = doc.to_dict()
+                if parkName == dici['name'] and parkAddress == dici['other']:
+                    #print (f"park {dici['name']} in {dici['other']} has beem deleted")
+                    db.collection(u'Parks').document(doc.id).delete()
+                    self.assertTrue(True)
+        except:
+            self.assertTrue(False)
+
+
+    #Delete exist park
+    def test_delete_fallProject(self):
+        try:
+            parkName = "ghvgh"
+            parkAddress = "biajhvhglik"
+
+            docs = db.collection(u'Parks').stream()
+            for doc in docs:
+                dici = doc.to_dict()
+                if parkName == dici['name'] and parkAddress == dici['other']:
+                    #print (f"park {dici['name']} in {dici['other']} has beem deleted")
+                    db.collection(u'Parks').document(doc.id).delete()
+                    self.assertFalse(False)
+        except:
+            self.assertTrue(False)
+
+
+ #Delete exist park
+    def test_delete_fallsprint(self):
+        try:
+            parkName = "ssss"
+            parkAddress = "edee"
+
+            docs = db.collection(u'Parks').stream()
+            for doc in docs:
+                dici = doc.to_dict()
+                if parkName == dici['name'] and parkAddress == dici['other']:
+                    #print (f"park {dici['name']} in {dici['other']} has beem deleted")
+                    db.collection(u'Parks').document(doc.id).delete()
+                    self.assertFalse(False)
+        except:
+            self.assertTrue(False)
+
+ #Delete exist park
+    def test_delete_sprint(self):
+        try:
+            parkName = "dddd"
+            parkAddress = "ffff"
+
+            docs = db.collection(u'Parks').stream()
+            for doc in docs:
+                dici = doc.to_dict()
+                if parkName == dici['name'] and parkAddress == dici['other']:
+                    #print (f"park {dici['name']} in {dici['other']} has beem deleted")
+                    db.collection(u'Parks').document(doc.id).delete()
+                    self.assertFalse(False)
+        except:
+            self.assertTrue(False)
+
+#Update exist Guest
+    def test_updatedeveloper(self):
+        try:
+            ref_comment=db.collection(u'Users')
+            email="testttt@gmail.com"
+            ref_my=ref_comment.where(u'email',u'==',email).get()
+            field_updates={"firstname":'דני',"id":'12653',"lastname":'kecjkdsn'}
+            for r in ref_my:
+                rr=ref_comment.document(r.id)
+                rr.update(field_updates)
+                self.assertTrue(True)
+        except:
+            self.assertTrue(False)
+
+
+    def test_fallupdatedeveloper(self):
+        try:
+            ref_comment=db.collection(u'Users')
+            email="tejgjytt@gmail.com"
+            ref_my=ref_comment.where(u'email',u'==',email).get()
+            field_updates={"firstname":'דני',"id":'123',"lastname":'ghgfcgf'}
+            for r in ref_my:
+                rr=ref_comment.document(r.id)
+                rr.update(field_updates)
+                self.assertFalse(False)
+        except:
+            self.assertFalse(False)
+
+    def test_unexist_nnewdeletedeveloper(self):
+        try:
+            ref_comment=db.collection(u'Users')
+            ref_my=ref_comment.where(u'email',u'==',"UserNotFound@gmail.com").get()
+            for r in ref_my:
+                rr=ref_comment.document(r.id)
+                rr.delete()
+                self.assertTrue(False)
+        except:
+            self.assertTrue(True)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
