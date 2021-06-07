@@ -98,9 +98,9 @@ class TestHello(unittest.TestCase):
 
     def test_adddemand(self):
      try:
-         demand="as a developer i can add deman "
-         email="khawla@gmail.com"
-         status="To do"
+         demand="as a developer "
+         email="naema@gmail.com"
+         status="to do"
         
          siprintNumbe="1" 
          data={"email":email,"demand":demand,"status":status}
@@ -123,6 +123,18 @@ class TestHello(unittest.TestCase):
      except:
             self.assertTrue(False)
 
+    def test_correctadddemand(self):
+     try:
+         demand="as a developer i can add deman "
+         email="khawla@gmail.com"
+         status="To do"
+        
+         siprintNumbe="1" 
+         data={"email":email,"demand":demand,"status":status}
+         db.collection(u'DemandsTaple').document().set({"demand":demand,"email":email,"status":status})
+         self.assertTrue(True)
+     except:
+            self.assertTrue(False)    
     def test_registerdeveloper(self):
      try:
          email="mmm@gmail.co"
@@ -151,8 +163,33 @@ class TestHello(unittest.TestCase):
             self.assertTrue(False)
    
 
+    # Delete exist user
+    def test_delete_developer(self):
+        try:
+            email="newRr@gmail.com"
+            firstname="ff"
+            docs=db.collection(u'Users').stream()
+            for doc in docs:
+                d=doc.to_dict()
+                if email==d['email'] and firstname==d['firstname']:
+                    db.collection(u'Users').document(doc.id).delete()
+                    return self.assertTrue(True)
+        except:
+            self.assertTrue(False)
 
-
+ 
+    def test_delete_passddeveloper(self):
+        try:
+            email="newRr@gmail.com"
+            firstname="ff"
+            docs=db.collection(u'Users').stream()
+            for doc in docs:
+                d=doc.to_dict()
+                if email==d['email'] and firstname==d['firstname']:
+                    db.collection(u'Users').document(doc.id).delete()
+                    return self.assertTrue(False)
+        except:
+            self.assertTrue(False)
 
 
 
