@@ -21,7 +21,7 @@ pipeline {
      
     stage('Cloning Git') {
       steps {
-       git 'https://github.com/mor0981/ParkFlask.git'
+       git 'https://github.com/ayam999/Team28.git'
       }
     }
     stage('test') {
