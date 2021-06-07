@@ -163,7 +163,7 @@ class TestHello(unittest.TestCase):
             self.assertTrue(False)
    
 
-    # Delete exist user
+    
     def test_delete_developer(self):
         try:
             email="newRr@gmail.com"
@@ -190,6 +190,62 @@ class TestHello(unittest.TestCase):
                     return self.assertTrue(False)
         except:
             self.assertTrue(False)
+    
+    def test_delete_ScrumMaster(self):
+        try:
+            email="dodo@gmail.com"
+            firstname="nbzm"
+            docs=db.collection(u'Users').stream()
+            for doc in docs:
+                d=doc.to_dict()
+                if email==d['email'] and firstname==d['firstname']:
+                    db.collection(u'Users').document(doc.id).delete()
+                    return self.assertTrue(True)
+        except:
+            self.assertTrue(False)
+
+    def test_delete_FailedScrumMaster(self):
+        try:
+            email="hajks@gmail.com"
+            firstname="jakeshan"
+            docs=db.collection(u'Users').stream()
+            for doc in docs:
+                d=doc.to_dict()
+                if email==d['email'] and firstname==d['firstname']:
+                    db.collection(u'Users').document(doc.id).delete()
+                    return self.assertFalse(False)
+        except:
+            self.assertTrue(True)
+
+    def test_updateScrumMaster(self):
+        try:
+            ref_comment=db.collection(u'Users')
+            email="teshela@gmail.com"
+            ref_my=ref_comment.where(u'email',u'==',email).get()
+            field_updates={"firstname":'דני',"id":'9816532',"lastname":'dedosam'}
+            for r in ref_my:
+                rr=ref_comment.document(r.id)
+                rr.update(field_updates)
+                self.assertTrue(True)
+        except:
+            self.assertTrue(False)
+
+    def test_FailedUpdateScrumMaster(self):
+        try:
+            ref_comment=db.collection(u'Users')
+            email="teshela@gmail.com"
+            ref_my=ref_comment.where(u'email',u'==',email).get()
+            field_updates={"firstname":'דני',"id":'9816532',"lastname":dedosam}
+            for r in ref_my:
+                rr=ref_comment.document(r.id)
+                rr.update(field_updates)
+                self.assertFalse(True)
+        except:
+            self.assertFalse(False)
+
+  
+
+
 
 
 
