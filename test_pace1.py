@@ -54,12 +54,13 @@ class TestHello(unittest.TestCase):
 
     def test_adddemand(self):
      try:
-         email="khawla@gmail.com"
          demand="as a developer i can add deman "
+         email="khawla@gmail.com"
+         status="to do"
         
          siprintNumbe="1" 
-         data={"email":email,"demand":demand,"siprintNumber":siprintNumber}
-         db.collection(u'Developertabel').document().set({"email":email,"demand":demand,"siprintNumber":siprintNumber})
+         data={"email":email,"demand":demand,"status":status}
+         db.collection(u'DemandsTaple').document().set({"demand":demand,"email":email,"status":status})
          self.assertTrue(True)
      except:
             self.assertTrue(False)
