@@ -51,6 +51,48 @@ class TestHello(unittest.TestCase):
             self.assertTrue(False)
         except:
             self.assertTrue(True)
+    def test_registerAdmine(self):
+     try:
+         email="dodo@gmail.com"
+         firstname="dodosam"
+         id="123456789"
+         lastname="dedosam"
+         password="123456" 
+         data={"email":email,"firstname":firstname,"id":id,"lastname":lastname,"password":password}
+         db.collection(u'ScrumMastertabel').document().set(data)
+         self.assertTrue(True)
+     except:
+            self.assertTrue(False)
+
+    #Register User with uncorrect details
+    def test_registeScrumMaster_uncorrect(self):
+        try:
+    
+            email="dodo@gmail.com"
+            firstname="bu"
+            id="12355559"
+            lastname="alh"
+            password="12345678"
+            data={"email":email,"firstname":firstname,"id":id,"lastname":lastname,"password":password}
+            db.collection(u'ScrumMastertabel').document().set(data)
+            self.assertTrue(False)
+        except:
+            self.assertTrue(True)
+
+        #Register User with uncorrect details
+    def test_registeScrumMaster_uncorrect(self):
+        try:
+    
+            email="dodo@gmail.com"
+            firstname="bu"
+            id="12355559"
+            lastname="alh"
+            password="12345678"
+            data={"email":email,"firstname":firstname,"id":id,"lastname":lastname,"password":password}
+            db.collection(u'ScrumMastertabel').document().set(data)
+            self.assertTrue(False)
+        except:
+            self.assertTrue(False)
 
     def test_adddemand(self):
      try:
