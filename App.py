@@ -137,6 +137,10 @@ def login():
 
 
 @app.route('/')
+@app.route('/Home', methods=['GET', 'POST'])
+def homePage():
+    return render_template('home.html')
+
 @app.route('/HomePage',methods=['GET', 'POST'])
 def home():
     form = LoginForm()
