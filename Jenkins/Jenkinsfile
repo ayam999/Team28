@@ -45,17 +45,16 @@ pipeline {
                 }
             }
         }
-		    '''
+		    
 			    stage('pylint') {
             steps {
                 withEnv(["HOME=${env.WORKSPACE}"]) {
                     dir("TEME28/codejana_flask"){
-			sh "python -m pylint settings.py"
-			sh "python -m pylint urls.py"
-                        sh "python -m pylint __init__.py"
-		    }
-		    dir("DjangoWebProject2/app"){
-                        sh "python -m pylint admin.py"
+			sh "python -m pylint forms.py"
+       sh "python -m pylint App.py"
+			
+		   dir("TEME28"){
+                        sh "python -m pylint App.py"
 		    }
 		}
 	    }
@@ -63,7 +62,7 @@ pipeline {
 			    
 		    }
 
-'''
+
 
 
 
