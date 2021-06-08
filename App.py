@@ -225,7 +225,12 @@ def user():
 def logout():
     session.pop("userdeveloper",None)
     return redirect(url_for("home"))
-    
+
+#ayam 
+@app.route('/logout')
+def logoutScrumMaster():
+    session.pop("userScrumMaster",None)
+    return redirect(url_for("home"))
 
 
 

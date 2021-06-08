@@ -349,13 +349,14 @@ class TestHello(unittest.TestCase):
                 rr.delete()
                 self.assertTrue(False)
         except:
+            
             self.assertTrue(True)
     
     def test_login_as_ScrumMaster(self):
         taster = app.test_client(self)
-        rv = taster.post('/login' , data=dict(email="mor098@gmail.com",password="123456"),follow_redirects=True)
-        rv = taster.get('/login',follow_redirects=True)
-        self.assertTrue('users'.encode() in rv.data)
+        rv = taster.post('/loginScrum' , data=dict(email="ayam99@gmail.com",password="1234"),follow_redirects=True)
+        rv = taster.get('/loginScrum',follow_redirects=True)
+        self.assertFalse('userScrumMaster'.encode() in rv.data)
         rv= taster.get('/logout',follow_redirects=True)
 
 
