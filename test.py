@@ -225,7 +225,7 @@ class TestHello(unittest.TestCase):
             ref_comment=db.collection(u'Users')
             email="teshela@gmail.com"
             ref_my=ref_comment.where(u'email',u'==',email).get()
-            field_updates={"firstname":'דני',"id":'9816532',"lastname":dedosam}
+            field_updates={"firstname":'דני',"id":'9816532',"lastname":'dedosam'}
             for r in ref_my:
                 rr=ref_comment.document(r.id)
                 rr.update(field_updates)
