@@ -26,6 +26,7 @@ firebase = pyrebase.initialize_app(config)
 auth= firebase.auth()
 
 class TestHello(unittest.TestCase):
+    #1
     def test_registerAdmine(self):
      try:
          email="bushra@gmail.com"
@@ -39,7 +40,7 @@ class TestHello(unittest.TestCase):
      except:
             self.assertTrue(False)
 
-    #Register User with uncorrect details
+    #2
     def test_registerAdmine_uncorrect(self):
         try:
     
@@ -55,7 +56,7 @@ class TestHello(unittest.TestCase):
 
             self.assertTrue(True)
     
-    #Register User with uncorrect details
+    #3
     def test_registeScrumMaster_correct(self):
         try:
     
@@ -70,7 +71,7 @@ class TestHello(unittest.TestCase):
         except:
             self.assertTrue(True)
 
-        #Register User with uncorrect details
+    #4
     def test_registeScrumMaster_uncorrect(self):
         try:
     
@@ -86,6 +87,7 @@ class TestHello(unittest.TestCase):
 
             self.assertTrue(False)
 
+    #5
     def test_adddemand(self):
      try:
          demand="as a developer "
@@ -99,7 +101,7 @@ class TestHello(unittest.TestCase):
      except:
             self.assertTrue(False)
 
-
+    #6
     def test_falladddemand(self):
      try:
          demand="as a developer i can add deman "
@@ -113,6 +115,7 @@ class TestHello(unittest.TestCase):
      except:
             self.assertTrue(False)
 
+    #7
     def test_correctadddemand(self):
      try:
          demand="as a developer i can add deman "
@@ -124,7 +127,9 @@ class TestHello(unittest.TestCase):
          db.collection(u'DemandsTaple').document().set({"demand":demand,"email":email,"status":status})
          self.assertTrue(True)
      except:
-            self.assertTrue(False)    
+            self.assertTrue(False) 
+
+    #8   
     def test_registerdeveloper(self):
      try:
          email="mmm@gmail.co"
@@ -139,6 +144,7 @@ class TestHello(unittest.TestCase):
             self.assertTrue(False)
    
 
+    #9
     def test_fallregisterdeveloper(self):
      try:
          email="55@gmail.co"
@@ -153,7 +159,7 @@ class TestHello(unittest.TestCase):
             self.assertTrue(False)
    
 
-    
+    #10
     def test_delete_developer(self):
         try:
             email="newRr@gmail.com"
@@ -167,7 +173,7 @@ class TestHello(unittest.TestCase):
         except:
             self.assertTrue(False)
 
- 
+    #11
     def test_delete_falldeveloper(self):
         try:
             email="newRr@gmail.com"
@@ -181,6 +187,7 @@ class TestHello(unittest.TestCase):
         except:
             self.assertTrue(False)
     
+    #12
     def test_delete_ScrumMaster(self):
         try:
             email="dodo@gmail.com"
@@ -194,6 +201,7 @@ class TestHello(unittest.TestCase):
         except:
             self.assertTrue(False)
 
+    #13
     def test_delete_FailedScrumMaster(self):
         try:
             email="hajks@gmail.com"
@@ -207,6 +215,7 @@ class TestHello(unittest.TestCase):
         except:
             self.assertTrue(True)
 
+    #14
     def test_updateScrumMaster(self):
         try:
             ref_comment=db.collection(u'Users')
@@ -220,6 +229,7 @@ class TestHello(unittest.TestCase):
         except:
             self.assertTrue(False)
 
+    #15
     def test_FailedUpdateScrumMaster(self):
         try:
             ref_comment=db.collection(u'Users')
@@ -234,13 +244,7 @@ class TestHello(unittest.TestCase):
             self.assertFalse(False)
 
   
-
-
-
-
-
-
-    #Delete exist park
+    #16
     def test_delete_Project(self):
         try:
             parkName = "newTestPark"
@@ -257,7 +261,7 @@ class TestHello(unittest.TestCase):
             self.assertTrue(False)
 
 
-    #Delete exist park
+    #17
     def test_delete_fallProject(self):
         try:
             parkName = "ghvgh"
@@ -274,7 +278,7 @@ class TestHello(unittest.TestCase):
             self.assertTrue(False)
 
 
- #Delete exist park
+    #18
     def test_delete_fallsprint(self):
         try:
             parkName = "ssss"
@@ -290,7 +294,7 @@ class TestHello(unittest.TestCase):
         except:
             self.assertTrue(False)
 
- #Delete exist park
+    #19
     def test_delete_sprint(self):
         try:
             parkName = "dddd"
@@ -306,7 +310,7 @@ class TestHello(unittest.TestCase):
         except:
             self.assertTrue(False)
 
-#Update exist Guest
+    #20
     def test_updatedeveloper(self):
         try:
             ref_comment=db.collection(u'Users')
@@ -320,7 +324,8 @@ class TestHello(unittest.TestCase):
         except:
             self.assertTrue(False)
 
-
+    
+    #21
     def test_fallupdatedeveloper(self):
         try:
             ref_comment=db.collection(u'Users')
@@ -334,6 +339,7 @@ class TestHello(unittest.TestCase):
         except:
             self.assertFalse(False)
 
+    #22
     def test_unexist_nnewdeletedeveloper(self):
         try:
             ref_comment=db.collection(u'Users')
@@ -344,9 +350,13 @@ class TestHello(unittest.TestCase):
                 self.assertTrue(False)
         except:
             self.assertTrue(True)
-
-
-
+    
+    def test_login_as_ScrumMaster(self):
+        taster = app.test_client(self)
+        rv = taster.post('/login' , data=dict(email="mor098@gmail.com",password="123456"),follow_redirects=True)
+        rv = taster.get('/login',follow_redirects=True)
+        self.assertTrue('users'.encode() in rv.data)
+        rv= taster.get('/logout',follow_redirects=True)
 
 
 
