@@ -135,11 +135,13 @@ def login():
 
 
 
-
+#newManal
 @app.route('/')
 @app.route('/Home', methods=['GET', 'POST'])
 def homePage():
     return render_template('home.html')
+
+
 
 @app.route('/HomePage',methods=['GET', 'POST'])
 def home():
@@ -747,6 +749,8 @@ def allDemands():
     guests=db.collection(u'DemandsTaple').stream()
     return render_template('AllDemnads.html', guests=guests)
 
+    
+#newManal
 @app.route('/myDemands/<string:email>/list', methods=['POST','GET'])
 def myDemands(email):
     try:

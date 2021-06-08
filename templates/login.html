@@ -1,47 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-        <title>developer login</title>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <style>
-        * {
-          box-sizing: border-box;
-        }
-        
-        body {
-          margin: 0;
-        }
-        
-        /* Style the header */
-        .header {
-          background-color: #f1f1f1;
-          padding: 20px;
-          text-align: center;
-        }
-        
-        /* Style the top navigation bar */
-        .topnav {
-          overflow: hidden;
-          background-color: #333;
-        }
-        
-        /* Style the topnav links */
-        .topnav a {
-          float: left;
-          display: block;
-          color: #f2f2f2;
-          text-align: center;
-          padding: 14px 16px;
-          text-decoration: none;
-        }
-        
-        /* Change color on hover */
-        .topnav a:hover {
-          background-color: #ddd;
-          color: black;
-        }
-        body, html {
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body, html {
   height: 100%;
   font-family: Arial, Helvetica, sans-serif;
 }
@@ -92,7 +54,7 @@ input[type=text]:focus, input[type=password]:focus {
 }
 
 /* Set a style for the submit button */
-.btn btn-online-info {
+.btn {
   background-color: #04AA6D;
   color: white;
   padding: 16px 20px;
@@ -105,13 +67,19 @@ input[type=text]:focus, input[type=password]:focus {
 .btn:hover {
   opacity: 1;
 }
-        </style>
+</style>
 </head>
 <body>
 
-            {{ form.hidden_tag() }}
+<h2>Login As a Developer</h2>
+<div class="bg-img">
+
+  <form action="#" class="container">
+    <h1>Login</h1>
+
+    
+    {{ form.hidden_tag() }}
             <fieldset>
-              <legend class="border-bottom mb-4"> developer login </legend>
 
                <div class="form-group">
               {{ form.email.label(class="form-control-label") }}
@@ -138,33 +106,14 @@ input[type=text]:focus, input[type=password]:focus {
               {%endif%}
                </div>
 
-            
-
-
-          </fieldset>
-
-          
-<br>
-      <div class="field-group my-4">
-          {{ form.submit(class='btn btn-online-info') }}
-      </div>
-      
-
-      <br>
-
-    <div class="topnav">
-      <a href="/loginScrum">login as Scrum Master </a>
-      <a href="/loginAdmine">login as Admin </a>
-    
-    </div>
-
-<br>
-     
-
-
-          </form>
-
+               <div class="field-group my-4">
+                {{ form.submit(class="btn") }}
+            </div>
+  
+  </form>
 </div>
+
+
 
 </body>
 </html>
