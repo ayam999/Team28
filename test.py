@@ -355,7 +355,7 @@ class TestHello(unittest.TestCase):
         taster = app.test_client(self)
         rv = taster.post('/login' , data=dict(email="mor098@gmail.com",password="123456"),follow_redirects=True)
         rv = taster.get('/login',follow_redirects=True)
-        self.assertTrue('משתמשים'.encode() in rv.data)
+        self.assertTrue('users'.encode() in rv.data)
         rv= taster.get('/logout',follow_redirects=True)
 
 
