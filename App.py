@@ -143,8 +143,8 @@ def homePage():
 
 
 
-@app.route('/HomePage',methods=['GET', 'POST'])
-def home():
+@app.route('/loginDeveloper',methods=['GET', 'POST'])
+def loginDeveloper():
     form = LoginForm()
     if form.validate_on_submit():
         try:
@@ -765,5 +765,23 @@ def myDemands(email):
     except Exception as e:
         return f"An Error Occured: {e}"
 
+
+'''
+@app.route('/listScrumMaster', methods=['GET'])
+def allScrumMaster():
+    
+    guests=db.collection(u'ScrumMastertabel').stream()
+    return render_template('AllScrumMaster.html', guests=guests)
+
+    
+@app.route('/myScrumMaster/<string:email>/list', methods=['POST','GET'])
+def myScrumMaster(email):
+    try:
+        collection = db.collection("ScrumMaster").where(u"email", u"==", email).get()
+    
+        return render_template('myScrumMasterlist.html',collection=collection)
+    except Exception as e:
+        return f"An Error Occured: {e}"
+'''
 if __name__ == '__main__':
     app.run(debug=True)
