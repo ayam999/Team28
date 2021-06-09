@@ -349,7 +349,7 @@ class TestHello(unittest.TestCase):
                 rr.delete()
                 self.assertTrue(False)
         except:
-            
+              
             self.assertTrue(True)
     
     def test_login_as_ScrumMaster(self):
