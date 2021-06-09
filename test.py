@@ -424,6 +424,23 @@ class TestHello(unittest.TestCase):
 
 
 
+class intgrationtest(unittest.TestCase):
+    def test_show_tutor(self):
+        taster = app.test_client.get(form("show"))
+        self.assertEquals(taster.status, 200)
+        self.assertTemplateUsed(taster,"app/show.html")
+
+        taster = self.client.get(form('studentsignup'))
+        self.assertEquals(taster.status, 200)
+        self.assertTemplateUsed(taster,"app/studentsignup.html")
+
+
+
+
+
+ 
+
+
 
 
 if __name__ == '__main__':
