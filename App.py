@@ -592,7 +592,6 @@ def UpdateScrumMaster(email):
     return render_template('UpdateScrumMaster.html', title='Update ScrumMaster',form=form, legend='Update Developer')
     
 
-    
  
 @app.route('/Demand/<string:email>/update', methods=['GET', 'POST'])
 def UpdateDemand(email):
@@ -643,7 +642,6 @@ def UpdateDemand(email):
         form.status.data=wanted['status']
         
     return render_template('UpdateDemand.html', title='Update Demand',form=form, legend='Update Demand')
-
 
 @app.route('/addProject', methods =['GET','POST'])
 def addProject():
