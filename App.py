@@ -102,7 +102,7 @@ def loginDeveloper():
         try:
             auth.sign_in_with_email_and_password(form.email.data,form.password.data)
             session["userdeveloper"]=form.email.data
-            return redirect(url_for("userdeveloper"))
+            return redirect(url_for("userdeveloper"),form=form,developer=session["userdeveloper"])
         except:
             return render_template('login.html',form=form,us="Not Exist")
     else:
@@ -264,33 +264,7 @@ def registerAdmine():
 
 
 
-'''
-@app.route('/addDemand',methods=['GET', 'POST'])
-def addDemand():
-    form=addDemandForm()
-    if request.method == 'POST':
-        email=form.email.data
-        password=form.passwordl.data
-        demand=form.demand.data
-        sprintNumper=demand=form.sprintNumper.data
-        demandNumber=form.demandNumber.data
-        try: 
-            Developertabel=auth.create_user_with_email_and_password(email,password)
-            data={"email":email,"password":password,"demand":demand,"sprintNumper":sprintNumper,"demandNumber":demandNumber}
-            db.collection(u'DemandTabel').document().set({"email":email,"password":password,"demand":demand,"sprintNumper":sprintNumper,"demandNumber":demandNumber})
-            print(auth.get_account_info(userDemand['idToken'])['DemandTabel'][0]['localId'])
-            info=auth.get_account_info(userDemand['idToken'])['DemandTabel'][0]['localId']
-            db.collection(u'DemandTabel').document(info).set(data)
-            return redirect(url_for("addDemandPage"),form=form)
-           # return render_template('scrumMaster.html',form=form)
-        except:
-            print("demand already exist")
-            #return redirect(url_for("registerAdminPage"),form=form)
 
-    return render_template('registerAdmin.html',form=form)
-
-
-'''
 
 
 @app.route('/addDemand', methods =['GET','POST'])
@@ -716,6 +690,16 @@ def myDemands(email):
     except Exception as e:
         return f"An Error Occured: {e}"
 
+
+@app.route('/developerUsers', methods=['POST','GET'])
+def developerUsers():
+    guests=db.collection(u'Developertabel').stream()
+    return render_template('developerUsers.html', guests=guests)
+
+@app.route('/scrumMasterUsers', methods=['POST','GET'])
+def scrumMasterUsers():
+    guests=db.collection(u'ScrumMastertabel').stream()
+    return render_template('scrumMasterUsers.html', guests=guests)
 
 '''
 @app.route('/listScrumMaster', methods=['GET'])
