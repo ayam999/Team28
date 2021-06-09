@@ -86,54 +86,6 @@ def addDemandPage():
     return render_template('addDemand.html')
 
 
-'''
-@app.route('/')
-@app.route('/login',methods=['GET', 'POST'])
-def login():
-    print("login")
-    form = LoginForm()
-    if request.method == 'POST':
-    #if form.validate_on_submit():
-        print("click")
-        try:
-            user=auth.sign_in_with_email_and_password(form.email.data,form.password.data)
-            uid=auth.get_account_info(user['idToken'])['users'][0]['localId']
-            session["uid"]=uid
-            print("1")
-            #uid={'email':form.email.data,'password':form.password.data}
-            doc_ref=db.collection(u"Adminetabel").document(uid)
-            doc = doc_ref.get()
-            print(doc)
-            if doc.exists:
-                admin=doc.to_dict()['admin']
-                print(admin)
-                if(admin):
-                    print("if a")
-                    session["admin"]=True
-                    session["user"]=form.email.data
-                    #return redirect(url_for("adminPage"),form=form)
-                    return render_template('admin.html',form=form)
-                else:
-                    print("els a")
-                    session["admin"]=False
-                    session["user"]=form.email.data
-                    return redirect(url_for("developerPage"),form=form)
-        except:
-            return render_template('register.html',form=form,us="Not Exist")
-    else:
-        if "user" in session:
-            print("111")
-            if(session["admin"]):
-                print("222")
-                return redirect(url_for("adminPage"),form=form)
-            else:
-                return redirect(url_for("developerPage"),form=form)
-        print("gggggg")
-        return render_template('login.html',form=form)
-'''
-
-
-
 
 #newManal
 @app.route('/')
