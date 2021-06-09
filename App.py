@@ -135,8 +135,14 @@ def login():
 
 
 
-
+#newManal
 @app.route('/')
+@app.route('/Home', methods=['GET', 'POST'])
+def homePage():
+    return render_template('home.html')
+
+
+
 @app.route('/HomePage',methods=['GET', 'POST'])
 def home():
     form = LoginForm()
@@ -225,7 +231,12 @@ def user():
 def logout():
     session.pop("userdeveloper",None)
     return redirect(url_for("home"))
-    
+
+#ayam 
+@app.route('/logout')
+def logoutScrumMaster():
+    session.pop("userScrumMaster",None)
+    return redirect(url_for("home"))
 
 
 
@@ -743,8 +754,16 @@ def allDemands():
     guests=db.collection(u'DemandsTaple').stream()
     return render_template('AllDemnads.html', guests=guests)
 
-
-
+    
+#newManal
+@app.route('/myDemands/<string:email>/list', methods=['POST','GET'])
+def myDemands(email):
+    try:
+        collection = db.collection("DemandsTaple").where(u"email", u"==", email).get()
+    
+        return render_template('myDemandlist.html',collection=collection)
+    except Exception as e:
+        return f"An Error Occured: {e}"
 
 if __name__ == '__main__':
     app.run(debug=True)
