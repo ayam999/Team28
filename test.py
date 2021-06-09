@@ -374,6 +374,18 @@ class TestHello(unittest.TestCase):
         except:
             self.assertTrue(False)
 
+    def test_unexist_deletedev(self):
+        try:
+            ref_comment=db.collection(u'Users')
+            ref_my=ref_comment.where(u'email',u'==',"UserNotFound@gmail.com").get()
+            for r in ref_my:
+                rr=ref_comment.document(r.id)
+                rr.delete()
+                self.assertTrue(True)
+        except:
+              
+            self.assertTrue(True)
+
 
 
     def test_unexist_nnewdeletedeveloper(self):
@@ -421,13 +433,33 @@ class TestHello(unittest.TestCase):
         except:
             self.assertTrue(False)
 
+    def setUp(self):
+        app.testing = True
+        self.app = app.test_client()
+
+    def test_homePage(self):
+        rv = self.app.get('/')
+        self.assertEqual(rv.status, '200 OK')
+
+    def setUpfall(self):
+        app.testing = False
+        self.app = app.test_client()
+    def test_login(self):
+        taster = app.test_client(self)
+        print("fail")
+        rv = taster.post('/login' , data=dict(email="mor0981@gmail.com",password="123456"),follow_redirects=True)
+        rv = taster.get('/login',follow_redirects=True)
+        self.assertTrue('משתמשים'.encode() in rv.data)
+        rv= taster.get('/logout',follow_redirects=True)
 
 
-
-
-
- 
-
+    def test_falllogin(self):
+        taster = app.test_client(self)
+        print("hhhhhhhhhhhhhhhhhhhh")
+        rv = taster.post('/login' , data=dict(email="mor0981@gmail.com",password="123456"),follow_redirects=True)
+        rv = taster.get('/login',follow_redirects=True)
+        self.assertTrue('משתמשים'.encode() in rv.data)
+        rv= taster.get('/logout',follow_redirects=False)
 
 
 
