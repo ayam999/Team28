@@ -143,8 +143,8 @@ def homePage():
 
 
 
-@app.route('/HomePage',methods=['GET', 'POST'])
-def home():
+@app.route('/loginDeveloper',methods=['GET', 'POST'])
+def loginDeveloper():
     form = LoginForm()
     if form.validate_on_submit():
         try:
