@@ -767,14 +767,13 @@ def myDemands(email):
 
 
 
-@app.route('/list', methods=['GET'])
+@app.route('/listScrumMaster', methods=['GET'])
 def allScrumMaster():
     
-    guests=db.collection(u'TapleScrumMastertabel').stream()
-    return render_template('AllScrumMastertabel.html', guests=guests)
+    guests=db.collection(u'ScrumMastertabel').stream()
+    return render_template('AllScrumMaster.html', guests=guests)
 
     
-#newManal
 @app.route('/myScrumMaster/<string:email>/list', methods=['POST','GET'])
 def myScrumMaster(email):
     try:
