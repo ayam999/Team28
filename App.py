@@ -765,8 +765,7 @@ def myDemands(email):
     except Exception as e:
         return f"An Error Occured: {e}"
 
-if __name__ == '__main__':
-    app.run(debug=True)
+
 
 @app.route('/list', methods=['GET'])
 def allScrumMaster():
@@ -779,7 +778,7 @@ def allScrumMaster():
 @app.route('/myScrumMaster/<string:email>/list', methods=['POST','GET'])
 def myScrumMaster(email):
     try:
-        collection = db.collection("ScrumMastertabel").where(u"email", u"==", email).get()
+        collection = db.collection("ScrumMaster").where(u"email", u"==", email).get()
     
         return render_template('myScrumMasterlist.html',collection=collection)
     except Exception as e:
