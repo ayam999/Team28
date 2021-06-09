@@ -1,16 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+    <title>Developer Page</title>
+    
+<style>
+body, html {
+  height: 100%;
+  margin: 0;
+}
+
+body {margin:0;}
+
+.navbar {
+  overflow: hidden;
+  background-color: rgb(7, 124, 139);
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+.navbar a {
+  float: left;
+  display: block;
+  color: #e7eaeb;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.navbar a:hover {
+  background: #ddd;
+  color: black;
+}
+
+
+body{
+    background-color:lightblue
+}
+
+</style>
 <h1> scrum Masterpage</h1>
 <div>
     <ul>
         <li><a href="{{url_for('logout')}}">Logout</a></li>
     </ul>
 </div>
+
+<a href='addProject'>
+    <button class="button button1">add Project</button>
+</a>
 
 </body>
 </html>
