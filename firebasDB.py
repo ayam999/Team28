@@ -1,4 +1,4 @@
-from flask import Flask,render_template,request,flash,session,redirect,url_for,abort
+'''from flask import Flask,render_template,request,flash,session,redirect,url_for,abort
 from forms import LoginForm,SignOutForm
 from flask_jsglue import JSGlue
 import pyrebase
@@ -47,3 +47,4 @@ Config = {
 
 db = firestore.client()
 
+'''

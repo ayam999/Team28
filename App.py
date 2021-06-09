@@ -22,21 +22,21 @@ app.config['SECRET_KEY']='khawla'
 
 #For Firebase JS SDK v7.20.0 and later, measurementId is optional
 print(firebase_admin)
-config={
-  "apiKey": "AIzaSyDj83l21N_0vFiJP2_RhiUTN2qr8X84dfI" ,
-  "authDomain": "flaskdb-fb78d.firebaseapp.com",
-  "databaseURL": "https://flaskdb-fb78d-default-rtdb.firebaseio.com",
-  "projectId": "flaskdb-fb78d",
-  "storageBucket": "flaskdb-fb78d.appspot.com",
-  "messagingSenderId": "291466022293",
-  "appId": "1:291466022293:web:462cf3b91963df70b87a9c",
-  "measurementId": "G-W08M46DJ3R"
+config = {
+  "apiKey": "AIzaSyBqv6hHsWrb8PkbEDWzsfDPRMAdwCspGz8",
+  "authDomain": "codejanaflask.firebaseapp.com",
+  "databaseURL":"https://codejanaflask-default-rtdb.firebaseio.com/",
+  "projectId": "codejanaflask",
+  "storageBucket": "codejanaflask.appspot.com",
+  "messagingSenderId": "592871149231",
+  "appId": "1:592871149231:web:a54baa8ee3a7e768764e5a",
+  "measurementId" : "G-RELFYHWY68"
 }
 
 
 
 
-cred = credentials.Certificate('flaskdb-fb78d-firebase-adminsdk-zmw6u-d4c4493a84.json')
+cred = credentials.Certificate('codejanaflask-firebase-adminsdk-kacfh-8b87d655e1.json')
 firebase_admin.initialize_app(cred)
 
 db = firestore.client()
