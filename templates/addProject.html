@@ -9,7 +9,7 @@
       <form method="POST" action="" >
           {{ form.hidden_tag() }}
           <fieldset>
-              <legend class="border-bottom mb-4">add Demand </legend>
+              <legend class="border-bottom mb-4">add Project </legend>
                
               {{ form.email.label(class="form-control-label") }}
               {% if form.email.errors %}
@@ -38,3 +38,18 @@
             {{ form.Project(class="from-control form-control-lg") }}
                 {%endif%}
                  </div>
+
+
+                 
+          </fieldset>
+          <div class="field-group my-4">
+              {{ form.submit(class='btn btn-online-info') }}
+          </div>
+    
+    
+              </form>
+    
+    </div>
+    
+    </body>
+    </html>

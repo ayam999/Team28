@@ -364,6 +364,82 @@ def deleteDeman(email):
     return render_template('DeleteDeman.html', form=form)
 
 
+
+
+
+
+
+
+
+
+
+
+@app.route('/addDemandd', methods =['GET','POST'])
+def addDemandd():
+    form = addDemandForm()
+    if form.validate_on_submit():
+        data = {
+        "name": form.email.data,
+        "other": form.Demand.data,
+        #"other": form.demandNumber.data,
+        #" Demand": form. Demand.data,
+
+        
+        }
+        docs = db.collection(u'DemandTabel').stream()
+        canAddDemand = True
+        for doc in docs:
+            dici = doc.to_dict()
+            #if data["name"] == dici['name'] and data["other"] == dici['other']and data["Demand"] == dici['Demand']:
+            
+            if data["name"] == dici['name'] and data["other"] == dici['other']:
+                canAddDemand = False
+
+        if canAddDemand:
+            db.collection(u'DemandTabel').document().set(data)
+            flash("add new Demand  ")
+        else:
+            flash(" Demand didint added ")
+
+        return redirect(url_for('addDemand'))
+    return render_template('addDemand.html', form=form)
+
+@app.route('/deleteDemandd', methods =['GET','POST'])
+def deleteDemandd():
+    form = DeleteDemanForm()
+    if form.validate_on_submit():
+
+        req = request.form
+        email = req["email"]
+        Demand  = req["Demand"]
+
+        docs = db.collection(u'DemandTabel').stream()
+        for doc in docs:
+            dici = doc.to_dict()
+            if email == dici['name'] and Demand  == dici['other']:
+                print (f"DemandTabel {dici['name']} in {dici['other']} has beem deleted")
+                db.collection(u'DemandTabel').document(doc.id).delete()
+                flash("Delete Deman")
+
+
+        return redirect(url_for('deleteDeman'))
+    return render_template('DeleteDeman.html', form=form)
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
 @app.route('/deleteDeveloper', methods =['GET','POST'])
 def deleteDeveloper():
     form = DeleteDeveloperForm()
