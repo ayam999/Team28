@@ -123,7 +123,7 @@ def loginScrumMaster():
             return render_template('loginScrumMaster.html',form=form,us="Not Exist")
     else:
         if "userScrumMaster" in session:
-            return redirect(url_for("userScrumMaster"))
+            return redirect(url_for("scrumMaster"))
         return render_template('loginScrumMaster.html',form=form)
 
 @app.route('/loginAdmine',methods=['GET', 'POST'])
@@ -182,7 +182,7 @@ def user():
 @app.route('/logout')
 def logout():
     session.pop("userdeveloper",None)
-    return redirect(url_for("home"))
+    return redirect(url_for("homePage"))
 
 #ayam 
 @app.route('/logout')
