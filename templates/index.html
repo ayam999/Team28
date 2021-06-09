@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Sign in</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body, html {
+          height: 100%;
+          font-family: Arial, Helvetica, sans-serif;
+        }
+        
+        * {
+          box-sizing: border-box;
+        }
+        
+        .bg-img {
+          /* The image used */
+          background-image: url("https://www.marketing91.com/wp-content/uploads/2020/07/Types-of-Resources.jpg ");
+          background-size: 300px;
+          width: 1500px;
+          height: 690px;
+          border: solid 2px rgb(245, 242, 242);
+        
+          min-height: 380px;
+        
+          /* Center and scale the image nicely */
+          background-position: center;
+          background-repeat: no-repeat;
+          background-size: cover;
+          position: relative;
+        }
+        
+        /* Add styles to the form container */
+        .container {
+          position: absolute;
+          right: 0;
+          margin: 20px;
+          max-width: 300px;
+          padding: 16px;
+          background-color: white;
+        }
+        
+        /* Full-width input fields */
+        input[type=text], input[type=password] {
+          width: 100%;
+          padding: 15px;
+          margin: 5px 0 22px 0;
+          border: none;
+          background: #f1f1f1;
+        }
+        
+        input[type=text]:focus, input[type=password]:focus {
+          background-color: #ddd;
+          outline: none;
+        }
+        
+        /* Set a style for the submit button */
+        .btn {
+          background-color: #04AA6D;
+          color: white;
+          padding: 16px 20px;
+          border: none;
+          cursor: pointer;
+          width: 100%;
+          opacity: 0.9;
+        }
+        
+        .btn:hover {
+          opacity: 1;
+        }
+        </style>
+</head>
+<h2>Login As a Developer</h2>
+<div class="bg-img">
+
+  <form action="#" class="container">
+    <h1>Login</h1>
+
+    
+    {{ form.hidden_tag() }}
+            <fieldset>
+
+               <div class="form-group">
+              {{ form.email.label(class="form-control-label") }}
+              {% if form.email.errors %}
+               {{ form.email(class="from-control form-control-lg is-invalid") }}
+                  {% for error in form.email.errors %}
+                      <span> {{error}}</span>
+                   {% endfor %}
+              {% else %}
+          {{ form.email(class="from-control form-control-lg") }}
+              {%endif%}
+               </div>
+               <br>
+
+                <div class="form-group">
+              {{ form.password.label(class="form-control-label") }}
+              {% if form.password.errors%}
+               {{ form.password(class="from-control form-control-lg is-invalid") }}
+                  {% for error in form.email.errors %}
+                      <span> {{error}}</span>
+                   {% endfor %}
+              {% else %}
+          {{ form.password(class="from-control form-control-lg") }}
+              {%endif%}
+               </div>
+
+               <div class="field-group my-4">
+                {{ form.submit(class="btn") }}
+            </div>
+  
+  </form>
+</div>
+
+<form class="" action="register" method="post">
+	<div class="text-center p-t-46 p-b-20">
+		<button type="submit" class="btn btn-primary">הרשמה</button>
+
+	</div>
+</form>
+<form class="" action="Home" method="post">
+
+	<div class="text-center p-t-46 p-b-20">
+		<button type="submit" class="btn btn-primary">ביטול הרשמה</button>
+	</div>
+</form>
+
+</body>
+</html>
