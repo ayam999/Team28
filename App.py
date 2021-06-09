@@ -89,8 +89,8 @@ def addDemandPage():
 
 #newManal
 @app.route('/')
-@app.route('/Home', methods=['GET', 'POST'])
-def homePage():
+@app.route('/home', methods=['GET', 'POST'])
+def home():
     return render_template('home.html')
 
 
