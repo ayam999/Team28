@@ -766,7 +766,7 @@ def myDemands(email):
         return f"An Error Occured: {e}"
 
 
-
+'''
 @app.route('/listScrumMaster', methods=['GET'])
 def allScrumMaster():
     
@@ -782,6 +782,6 @@ def myScrumMaster(email):
         return render_template('myScrumMasterlist.html',collection=collection)
     except Exception as e:
         return f"An Error Occured: {e}"
-
+'''
 if __name__ == '__main__':
     app.run(debug=True)
