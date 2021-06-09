@@ -462,7 +462,6 @@ def deleteDeveloper():
     return render_template('deleteDeveloper.html', form=form,)
 
 
-@app.route('/Developers/<string:email>/update', methods=['GET', 'POST'])
 def UpdateDeveloper(email):
     print("into UpdateDeveloper")
     docs = db.collection(u'Developertabel').stream()
