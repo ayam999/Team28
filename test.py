@@ -339,7 +339,44 @@ class TestHello(unittest.TestCase):
         except:
             self.assertFalse(False)
 
+<<<<<<< Updated upstream
     #22
+=======
+#Update exist Guest
+    def test_updatededemand(self):
+        try:
+            ref_comment=db.collection(u'Users')
+            email="hjhhjhj@gmail.com"
+            ref_my=ref_comment.where(u'email',u'==',email).get()
+            field_updates={"firstname":'mmmmmmmmmm',"id":'1264453',"lastname":'mmmmmmmmmmm'}
+            for r in ref_my:
+                rr=ref_comment.document(r.id)
+                rr.update(field_updates)
+                self.assertTrue(True)
+        except:
+            self.assertTrue(False)
+
+
+
+
+
+
+#Update exist Guest
+    def test_falupdatededemand(self):
+        try:
+            ref_comment=db.collection(u'Users')
+            email="hjhhjhj@gmail.com"
+            ref_my=ref_comment.where(u'email',u'==',email).get()
+            field_updates={"firstname":'jhjj',"id":'1264453',"lastname":'mmmmmjjjjjjjjjmmm'}
+            for r in ref_my:
+                rr=ref_comment.document(r.id)
+                rr.update(field_updates)
+                self.assertTrue(False)
+        except:
+            self.assertTrue(False)
+
+
+>>>>>>> Stashed changes
     def test_unexist_nnewdeletedeveloper(self):
         try:
             ref_comment=db.collection(u'Users')
@@ -351,6 +388,7 @@ class TestHello(unittest.TestCase):
         except:
               
             self.assertTrue(True)
+<<<<<<< Updated upstream
     
     def test_login_as_ScrumMaster(self):
         taster = app.test_client(self)
@@ -358,12 +396,40 @@ class TestHello(unittest.TestCase):
         rv = taster.get('/loginScrum',follow_redirects=True)
         self.assertFalse('userScrumMaster'.encode() in rv.data)
         rv= taster.get('/logout',follow_redirects=True)
+=======
 
 
 
+    def test_addsprint(self):
+        try:
+            parkName = "dddd"
+            parkAddress = "ffff"
+>>>>>>> Stashed changes
 
+            docs = db.collection(u'Parks').stream()
+            for doc in docs:
+                dici = doc.to_dict()
+                if parkName == dici['name'] and parkAddress == dici['other']:
+                    #print (f"park {dici['name']} in {dici['other']} has beem deleted")
+                    db.collection(u'Parks').document(doc.id).set(parkName)
+                    self.assertFalse(True)
+        except:
+            self.assertTrue(False)
 
+    def test_addfalnewssprint(self):
+        try:
+            parkName = "dddd"
+            parkAddress = "ffff"
 
+            docs = db.collection(u'Parks').stream()
+            for doc in docs:
+                dici = doc.to_dict()
+                if parkName == dici['name'] and parkAddress == dici['other']:
+                    #print (f"park {dici['name']} in {dici['other']} has beem deleted")
+                    db.collection(u'Parks').document(doc.id).set(parkName)
+                    self.assertFalse(False)
+        except:
+            self.assertTrue(False)
 
 
 
