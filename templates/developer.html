@@ -1,50 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <title>Developer page</title>
-    <style>
-        img {
-          border: 1px solid #ddd;
-          border-radius: 4px;
-          padding: 5px;
-          width: 150px;
-        }
-        
-        img:hover {
-          box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
-        }
-        </style>
-</head>
-<body>
-<h1> developer page</h1>
+    <title>Developer Page</title>
+    
+<style>
+body, html {
+  height: 100%;
+  margin: 0;
+}
+
+body {margin:0;}
+
+.navbar {
+  overflow: hidden;
+  background-color: rgb(7, 124, 139);
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+.navbar a {
+  float: left;
+  display: block;
+  color: #e7eaeb;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.navbar a:hover {
+  background: #ddd;
+  color: black;
+}
+
+
+body{
+    background-color:lightblue
+}
+
+</style>
+
 
 <div>
-    <ul>
-        <li><a href="{{url_for('logout')}}">Logout</a></li>
-    </ul>
-</div>
+    <h2>Developer Page</h2>
+    <h1>Developer Page</h1>
 
-<div class="container">
+<body class=>
+    <style>
+        
+        .button {
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+.button1 {background-color: #4CAF50;} /* Green */
+.button2 {background-color: #008CBA;} /* Blue */
+
+    </style>
+    <a href='list'>
+        <button class="button button1">Show Project Details</button>
+    </a>
+    <a href="{ url_for('Developers/{email}/update'}">
+        <button class="button button2">Update My Details</button>
+    </a>
     
-   
-    <button type="button" class="btn btn-primary">Normal</button>    
-
-    <a target="_blank" href="paris.jpg">
-        <img src="paris.jpg" alt="Paris" style="width:150px">
-      </a>
-   
-    
-
-
-<!--<div class="field-group my-4">
-    {{ form.submit(class='btn btn-online-info') }}
+<div class="navbar">
+    <a href="/" class="active">Home</a>
+    <a href="/logout">Logout</a>
 </div>
--->
 
 </body>
+
+ 
+</head>
 </html>
