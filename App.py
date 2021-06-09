@@ -182,7 +182,7 @@ def user():
 @app.route('/logout')
 def logout():
     session.pop("userdeveloper",None)
-    return redirect(url_for("homePage"))
+    return redirect(url_for("home"))
 
 #ayam 
 @app.route('/logout')
