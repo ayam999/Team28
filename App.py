@@ -593,6 +593,7 @@ def UpdateScrumMaster(email):
     
 
     
+ 
 @app.route('/Demand/<string:email>/update', methods=['GET', 'POST'])
 def UpdateDemand(email):
     print("into Update Demands")
@@ -764,6 +765,28 @@ def myDemands(email):
         return render_template('myDemandlist.html',collection=collection)
     except Exception as e:
         return f"An Error Occured: {e}"
+
+@app.route('/listDeveloper', methods=['GET'])
+def allDeveloper():
+    
+    guests=db.collection(u'Developertabel').stream()
+    return render_template('myDeveloperUsers.html', guests=guests)
+
+    
+#newManal
+#@app.route('/myDeveloperUsers/<string:email>/listDeveloper', methods=['POST','GET'])
+@app.route('/myDeveloperUsers', methods=['POST','GET'])
+#def myDeveloperUsers(email):
+def myDeveloperUsers():
+    try:
+        #collection = db.collection("Developertabel").where(u"email", u"==", email).get()
+        collection = db.collection("Developertabel").get()
+        return render_template('myDeveloperUsers.html',collection=collection)
+    except Exception as e:
+        return f"An Error Occured: {e}"
+
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)
