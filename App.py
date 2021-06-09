@@ -143,8 +143,8 @@ def homePage():
 
 
 
-@app.route('/HomePage',methods=['GET', 'POST'])
-def home():
+@app.route('/loginDeveloper',methods=['GET', 'POST'])
+def loginDeveloper():
     form = LoginForm()
     if form.validate_on_submit():
         try:
@@ -592,7 +592,7 @@ def UpdateScrumMaster(email):
     return render_template('UpdateScrumMaster.html', title='Update ScrumMaster',form=form, legend='Update Developer')
     
 
- 
+    
 @app.route('/Demand/<string:email>/update', methods=['GET', 'POST'])
 def UpdateDemand(email):
     print("into Update Demands")
@@ -642,6 +642,7 @@ def UpdateDemand(email):
         form.status.data=wanted['status']
         
     return render_template('UpdateDemand.html', title='Update Demand',form=form, legend='Update Demand')
+
 
 @app.route('/addProject', methods =['GET','POST'])
 def addProject():
@@ -764,30 +765,8 @@ def myDemands(email):
     except Exception as e:
         return f"An Error Occured: {e}"
 
-@app.route('/listDeveloper', methods=['GET'])
-def allDeveloper():
-    
-    guests=db.collection(u'Developertabel').stream()
-    return render_template('myDeveloperUsers.html', guests=guests)
 
-    
-#newManal
-#@app.route('/myDeveloperUsers/<string:email>/listDeveloper', methods=['POST','GET'])
-@app.route('/myDeveloperUsers', methods=['POST','GET'])
-#def myDeveloperUsers(email):
-def myDeveloperUsers():
-    try:
-        #collection = db.collection("Developertabel").where(u"email", u"==", email).get()
-        collection = db.collection("Developertabel").get()
-        return render_template('myDeveloperUsers.html',collection=collection)
-    except Exception as e:
-        return f"An Error Occured: {e}"
-
-
-
-
-
-
+'''
 @app.route('/listScrumMaster', methods=['GET'])
 def allScrumMaster():
     
@@ -803,7 +782,6 @@ def myScrumMaster(email):
         return render_template('myScrumMasterlist.html',collection=collection)
     except Exception as e:
         return f"An Error Occured: {e}"
-
-
+'''
 if __name__ == '__main__':
     app.run(debug=True)
