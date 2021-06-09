@@ -1,3 +1,25 @@
 {
-    "python.pythonPath": "C:\\Users\\IMOE001\\AppData\\Local\\Programs\\Python\\Python37\\python.exe"
+    "python.pythonPath": "C:\\Users\\נעימה\\AppData\\Local\\Programs\\Python\\Python39\\python.exe",
+    "python.testing.unittestArgs": [
+        "-v",
+        "-s",
+        "./templates",
+        "-p",
+        "*test.py"
+    ],
+    "python.testing.pytestEnabled": false,
+    "python.testing.nosetestsEnabled": false,
+    "python.testing.unittestEnabled": true
+=======
+        ".",
+        "-p",
+        "*test.py"
+    ],
+    "python.testing.pytestEnabled": true,
+    "python.testing.nosetestsEnabled": false,
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestArgs": [
+        "."
+    ]
+>>>>>>> 20aab77a3a1217a1d57f1df0d9f23d706f9e9c62
 }

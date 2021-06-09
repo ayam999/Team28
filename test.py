@@ -19,6 +19,7 @@ config={
 
 
 
+
 db = firestore.client()
 
 firebase = pyrebase.initialize_app(config)
