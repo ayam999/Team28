@@ -767,3 +767,23 @@ def myDemands(email):
 
 if __name__ == '__main__':
     app.run(debug=True)
+
+@app.route('/list', methods=['GET'])
+def allScrumMaster():
+    
+    guests=db.collection(u'TapleScrumMastertabel').stream()
+    return render_template('AllScrumMastertabel.html', guests=guests)
+
+    
+#newManal
+@app.route('/myScrumMaster/<string:email>/list', methods=['POST','GET'])
+def myScrumMaster(email):
+    try:
+        collection = db.collection("ScrumMastertabel").where(u"email", u"==", email).get()
+    
+        return render_template('myScrumMasterlist.html',collection=collection)
+    except Exception as e:
+        return f"An Error Occured: {e}"
+
+if __name__ == '__main__':
+    app.run(debug=True)
