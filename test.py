@@ -339,9 +339,7 @@ class TestHello(unittest.TestCase):
         except:
             self.assertFalse(False)
 
-<<<<<<< Updated upstream
-    #22
-=======
+
 #Update exist Guest
     def test_updatededemand(self):
         try:
@@ -376,7 +374,7 @@ class TestHello(unittest.TestCase):
             self.assertTrue(False)
 
 
->>>>>>> Stashed changes
+
     def test_unexist_nnewdeletedeveloper(self):
         try:
             ref_comment=db.collection(u'Users')
@@ -388,15 +386,6 @@ class TestHello(unittest.TestCase):
         except:
               
             self.assertTrue(True)
-<<<<<<< Updated upstream
-    
-    def test_login_as_ScrumMaster(self):
-        taster = app.test_client(self)
-        rv = taster.post('/loginScrum' , data=dict(email="ayam99@gmail.com",password="1234"),follow_redirects=True)
-        rv = taster.get('/loginScrum',follow_redirects=True)
-        self.assertFalse('userScrumMaster'.encode() in rv.data)
-        rv= taster.get('/logout',follow_redirects=True)
-=======
 
 
 
@@ -404,7 +393,7 @@ class TestHello(unittest.TestCase):
         try:
             parkName = "dddd"
             parkAddress = "ffff"
->>>>>>> Stashed changes
+
 
             docs = db.collection(u'Parks').stream()
             for doc in docs:
@@ -430,7 +419,6 @@ class TestHello(unittest.TestCase):
                     self.assertFalse(False)
         except:
             self.assertTrue(False)
-
 
 
 
